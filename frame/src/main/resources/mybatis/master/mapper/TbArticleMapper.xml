@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.phq.frame.mapper.master.TbArticleMapper" >
+
+  <resultMap id="BaseResultMap" type="com.phq.frame.domain.master.TbArticle" >
+    <id column="article_id" property="articleId" jdbcType="VARCHAR" />
+    <result column="article_head" property="articleHead" jdbcType="VARCHAR" />
+    <result column="article_author" property="articleAuthor" jdbcType="VARCHAR" />
+    <result column="article_type" property="articleType" jdbcType="VARCHAR" />
+    <result column="article_time" property="articleTime" jdbcType="TIMESTAMP" />
+    <result column="article_read_num" property="articleReadNum" jdbcType="INTEGER" />
+    <result column="article_read_like" property="articleReadLike" jdbcType="INTEGER" />
+    <result column="article_img_name" property="articleImgName" jdbcType="VARCHAR" />
+    <result column="article_img_url" property="articleImgUrl" jdbcType="VARCHAR" />
+    <result column="article_img_data" property="articleImgData" jdbcType="VARCHAR" />
+    <result column="article_isuse" property="articleIsuse" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <sql id="Base_Column_List" >
+    article_id, article_head, article_author, article_type, article_time, article_read_num, 
+    article_read_like, article_img_name, article_img_url, article_img_data, article_isuse, 
+    create_time, create_user, update_time, update_user
+  </sql>
+  
+   <insert id="insert" parameterType="com.phq.frame.domain.master.TbArticle" >
+    insert into tb_article (article_id, article_head, article_author, 
+      article_type, article_time, article_read_num, 
+      article_read_like, article_img_name, article_img_url, 
+      article_img_data, article_isuse, create_time, 
+      create_user, update_time, update_user, 
+      article_content)
+    values (#{articleId,jdbcType=VARCHAR}, #{articleHead,jdbcType=VARCHAR}, #{articleAuthor,jdbcType=VARCHAR}, 
+      #{articleType,jdbcType=VARCHAR}, #{articleTime,jdbcType=TIMESTAMP}, #{articleReadNum,jdbcType=INTEGER}, 
+      #{articleReadLike,jdbcType=INTEGER}, #{articleImgName,jdbcType=VARCHAR}, #{articleImgUrl,jdbcType=VARCHAR}, 
+      #{articleImgData,jdbcType=VARCHAR}, #{articleIsuse,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{articleContent,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  <!-- 获取文章时间最新的十条 -->
+  <select id="selectArticleList" parameterType="com.phq.frame.domain.master.TbArticle" resultMap="BaseResultMap">
+      SELECT
+		 <include refid="Base_Column_List" />
+		from tb_article t
+		where t.article_isuse = '1'
+		order by t.article_time desc
+		LIMIT 0 ,10 
+  </select>
+  
+  
+  
+</mapper>

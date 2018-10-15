@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.phq.frame.mapper.master.TbMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.phq.frame.domain.master.vo.TbMenuVo" >
+    <id column="menu_id" property="menuId" jdbcType="VARCHAR" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+    <result column="menu_pid" property="menuPid" jdbcType="VARCHAR" />
+    <result column="menu_level" property="menuLevel" jdbcType="INTEGER" />
+    <result column="menu_isuse" property="menuIsuse" jdbcType="INTEGER" />
+    <result column="menu_order" property="menuOrder" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    menu_id, menu_name, menu_url, menu_pid, menu_level, menu_isuse,menu_order
+  </sql>
+  
+  <!-- 获取资源菜单列表集合  -->
+  <select id="selectMenuList" resultMap="BaseResultMap"  parameterType="com.phq.frame.domain.master.vo.TbMenuVo">
+   SELECT
+	 <include refid="Base_Column_List" />
+	FROM tb_menu t 
+	where t.menu_level=#{menuLevel}
+	and t.menu_pid=#{menuPid}
+	order by t.menu_order 
+  </select>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.phq.frame.domain.master.TbMenu" >
+    insert into tb_menu (menu_id, menu_name, menu_url, 
+      menu_pid, menu_level, menu_isuse
+      )
+    values (#{menuId,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
+      #{menuPid,jdbcType=VARCHAR}, #{menuLevel,jdbcType=INTEGER}, #{menuIsuse,jdbcType=INTEGER}
+      )
+  </insert>
+
+ 
+  <update id="updateByPrimaryKey" parameterType="com.phq.frame.domain.master.TbMenu" >
+    update tb_menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      menu_pid = #{menuPid,jdbcType=VARCHAR},
+      menu_level = #{menuLevel,jdbcType=INTEGER},
+      menu_isuse = #{menuIsuse,jdbcType=INTEGER}
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+</mapper>
