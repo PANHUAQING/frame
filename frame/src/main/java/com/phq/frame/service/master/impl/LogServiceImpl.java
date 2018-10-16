@@ -1,6 +1,10 @@
 package com.phq.frame.service.master.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.phq.frame.domain.master.TbLog;
+import com.phq.frame.mapper.master.TbLogMapper;
 import com.phq.frame.service.master.LogService;
 /**
  * 
@@ -14,4 +18,19 @@ import com.phq.frame.service.master.LogService;
 @Service
 public class LogServiceImpl implements LogService {
 
+	@Autowired
+	private TbLogMapper tbLogMapper;
+	/**
+	 * 
+	* @Title: saveLogData
+	* @Description: 
+	*    保存日志数据
+	* @param @param log
+	* @param @throws Exception   
+	* @return void    
+	* @throws
+	 */
+	public void saveLogData(TbLog log) throws Exception {
+		tbLogMapper.insertLogData(log);
+	}
 }

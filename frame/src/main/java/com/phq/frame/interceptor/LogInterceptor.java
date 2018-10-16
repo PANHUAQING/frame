@@ -1,5 +1,6 @@
 package com.phq.frame.interceptor;
 
+import java.util.Date;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.phq.frame.domain.master.TbLog;
 import com.phq.frame.service.master.LogService;
 import com.phq.frame.util.IpUtil;
+import com.phq.frame.util.UUIDUtils;
+
 /**
  * 
 * @ClassName: LogInterceptor
@@ -25,6 +30,8 @@ public class LogInterceptor implements HandlerInterceptor {
 	private static final Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
 	private LogService logService;
 	
+	private TbLog log = new TbLog();
+	
 	public  LogInterceptor(LogService logService) {
 		this.logService = logService;
 	}
@@ -34,12 +41,26 @@ public class LogInterceptor implements HandlerInterceptor {
 		//日志拦截器 实现对页面请求的控制
 		String sessionId = request.getRequestedSessionId(); //请求sessionid
 		String uri =  request.getRequestURI();//url
-		Enumeration<String> attributeName = request.getAttributeNames();
-		StringBuffer sb =  request.getRequestURL();
-		System.out.println(sessionId+"--------"+uri+"s "+ sb.toString());
+		Enumeration<String> parameter = request.getParameterNames();
 		String clientIp =  IpUtil.getUserIp(request);
-		System.out.println(clientIp+"-------------");
-		logger.info(clientIp+"----");
+	
+		String logLoginName = "";
+		String logLoginUserId = "";
+		
+		//日志处理
+		log.setLogId(UUIDUtils.getUUID());
+		log.setLogCreateTime(new Date());
+		log.setLogRequestAttributes(JSONArray.toJSONString(parameter));
+		log.setLogRequestClientip(clientIp);
+		log.setLogRequestSessionid(sessionId);
+		log.setLogRequestStarttime(new Date());
+		log.setLogRequestUrl(uri);
+		log.setLogLoginName(logLoginName);
+		log.setLogLoginUserid(logLoginUserId);
+		logService.saveLogData(log);
+		
+		
+		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 
