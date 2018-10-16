@@ -18,12 +18,14 @@
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="article_content" property="articleContent" jdbcType="VARCHAR" />
+    <result column="strArticleTime" property="strArticleTime" jdbcType="VARCHAR" />
   </resultMap>
   
    <sql id="Base_Column_List" >
     article_id, article_head, article_author, article_type, article_time, article_read_num, 
     article_read_like, article_img_name, article_img_url, article_img_data, article_isuse, 
-    create_time, create_user, update_time, update_user
+    create_time, create_user, update_time, update_user,article_content
   </sql>
   
    <insert id="insert" parameterType="com.phq.frame.domain.master.TbArticle" >
@@ -45,6 +47,7 @@
   <select id="selectArticleList" parameterType="com.phq.frame.domain.master.TbArticle" resultMap="BaseResultMap">
       SELECT
 		 <include refid="Base_Column_List" />
+		 ,DATE_FORMAT(t.article_time,'%Y-%m-%d %H:%i:%s') strArticleTime
 		from tb_article t
 		where t.article_isuse = '1'
 		order by t.article_time desc

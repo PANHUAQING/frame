@@ -1,7 +1,13 @@
 package com.phq.frame.controller;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.phq.frame.domain.master.TbArticle;
+import com.phq.frame.service.master.ArticleService;
 /**
  * 
 * @ClassName: BaseController
@@ -14,10 +20,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class BaseController {
 	
+	@Autowired
+	private ArticleService articleService;
 	//博客首页跳转
 	@RequestMapping(value = "/")
 	public ModelAndView indexShow(ModelAndView mv) {
+		//获取文章
+	    List<TbArticle>  articleList  = articleService.selectArticleList(new TbArticle());
 	    mv.setViewName("blog/index");
+	    mv.addObject("articleList", articleList);
 	    return mv;
 	}
 		

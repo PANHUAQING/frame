@@ -8,5 +8,6 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface TbArticleMapper {
-    
+    //查询文章列表
+	public List<TbArticle> selectArticleList(TbArticle tbArticle);
 }

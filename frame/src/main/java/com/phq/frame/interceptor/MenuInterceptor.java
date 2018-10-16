@@ -57,8 +57,10 @@ public class MenuInterceptor implements HandlerInterceptor {
 				}
 		    }
 		}catch (Exception e) {
+			if(menuSevice!=null) {
 			List<TbMenuVo> menuList =   menuSevice.getTbMenuVoList();
 			modelAndView.addObject("menuList",menuList);
+			}
 		}
 		
 		

@@ -1,8 +1,11 @@
 package com.phq.frame.controller.blog;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.phq.frame.service.master.ArticleService;
 /**
  * 
 * @ClassName: BlogController
@@ -15,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping(value ="/blog/blogController")
 public class BlogController {
-
+	
 	//关于自己
 	@RequestMapping(value = "/about")
 	public ModelAndView about(ModelAndView mv) {

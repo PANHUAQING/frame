@@ -40,8 +40,18 @@ public class TbArticle  implements Serializable{
     private String updateUser;
 
     private String articleContent;
+    
+    private String strArticleTime;
 
-    public String getArticleId() {
+    public String getStrArticleTime() {
+		return strArticleTime;
+	}
+
+	public void setStrArticleTime(String strArticleTime) {
+		this.strArticleTime = strArticleTime;
+	}
+
+	public String getArticleId() {
         return articleId;
     }
 
