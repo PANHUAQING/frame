@@ -24,7 +24,7 @@ public class BaseController {
 	private ArticleService articleService;
 	//博客首页跳转
 	@RequestMapping(value = "/")
-	public ModelAndView indexShow(ModelAndView mv) {
+	public ModelAndView indexShow(ModelAndView mv) throws Exception {
 		//获取文章
 	    List<TbArticle>  articleList  = articleService.selectArticleList(new TbArticle());
 	    mv.setViewName("blog/index");
@@ -34,8 +34,10 @@ public class BaseController {
 		
 	//博客首页跳转
 	@RequestMapping(value = "/index")
-	public ModelAndView index(ModelAndView mv) {
+	public ModelAndView index(ModelAndView mv) throws Exception {
 	    mv.setViewName("blog/index");
+	    List<TbArticle>  articleList  = articleService.selectArticleList(new TbArticle());
+	    mv.addObject("articleList", articleList);
 	    return mv;
 	}
 	

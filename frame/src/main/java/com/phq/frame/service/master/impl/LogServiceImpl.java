@@ -33,4 +33,17 @@ public class LogServiceImpl implements LogService {
 	public void saveLogData(TbLog log) throws Exception {
 		tbLogMapper.insertLogData(log);
 	}
+	/**
+	 * @throws Exception 
+	 * 
+	* @Title: updateEndTime
+	* @Description:  
+	*     更新日志请求结束时间
+	* @param @param log   
+	* @return void    
+	* @throws
+	 */
+	public void updateEndTime(TbLog log) throws Exception {
+		tbLogMapper.updateEndTimeByPrimaryKey(log);
+	}
 }

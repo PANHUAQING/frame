@@ -18,7 +18,15 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.alibaba.druid.pool.DruidDataSource;
-
+/**
+ * 
+* @ClassName: MasterDataSourceConfig
+* @Description: 
+*     主数据源配置
+* @author panhuaqing
+* @date 2018年10月17日
+*
+ */
 @SpringBootConfiguration
 @MapperScan(basePackages = "com.phq.frame.mapper.master", sqlSessionTemplateRef = "masterSqlSessionTemplate") // 扫描Dao文件
 @EnableTransactionManagement // 支持事务注解

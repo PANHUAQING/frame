@@ -28,7 +28,8 @@
     create_time, create_user, update_time, update_user,article_content
   </sql>
   
-   <insert id="insert" parameterType="com.phq.frame.domain.master.TbArticle" >
+  <!-- 保存文章信息 -->
+   <insert id="insertArticleData" parameterType="com.phq.frame.domain.master.TbArticle" >
     insert into tb_article (article_id, article_head, article_author, 
       article_type, article_time, article_read_num, 
       article_read_like, article_img_name, article_img_url, 
@@ -55,5 +56,46 @@
   </select>
   
   
+  <!-- 通过主键获取文章信息 -->
+   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,DATE_FORMAT(t.article_time,'%Y-%m-%d %H:%i:%s') strArticleTime
+    from tb_article t
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </select>
   
+   <!-- 获取文章信息 -->
+   <select id="selectArticleFirst" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,DATE_FORMAT(t.article_time,'%Y-%m-%d %H:%i:%s') strArticleTime
+    from tb_article t 
+    order by t.article_time desc 
+    limit 0,1
+  </select>
+  
+  <!-- 通过主键删除 -->
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_article
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </delete>
+  
+  
+   <!-- 更新阅读次数 -->
+  <update id="updateReadNumByPrimaryKey" parameterType="com.phq.frame.domain.master.TbArticle" >
+    update tb_article
+    set 
+      article_read_num =article_read_num+1
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </update>
+  
+  
+   <!-- 更新喜欢度-->
+  <update id="updateReadLikeByPrimaryKey" parameterType="com.phq.frame.domain.master.TbArticle" >
+    update tb_article
+    set 
+      article_read_like =article_read_like+1
+    where article_id = #{articleId,jdbcType=VARCHAR}
+  </update>
 </mapper>

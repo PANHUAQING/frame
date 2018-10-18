@@ -5,6 +5,7 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ public class LogInterceptor implements HandlerInterceptor {
 	private static final Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
 	private LogService logService;
 	
+	private  String uuid ="";
 	private TbLog log = new TbLog();
 	
 	public  LogInterceptor(LogService logService) {
@@ -44,29 +46,43 @@ public class LogInterceptor implements HandlerInterceptor {
 		Enumeration<String> parameter = request.getParameterNames();
 		String clientIp =  IpUtil.getUserIp(request);
 	
-		String logLoginName = "";
-		String logLoginUserId = "";
-		
-		//日志处理
-		log.setLogId(UUIDUtils.getUUID());
-		log.setLogCreateTime(new Date());
-		log.setLogRequestAttributes(JSONArray.toJSONString(parameter));
-		log.setLogRequestClientip(clientIp);
-		log.setLogRequestSessionid(sessionId);
-		log.setLogRequestStarttime(new Date());
-		log.setLogRequestUrl(uri);
-		log.setLogLoginName(logLoginName);
-		log.setLogLoginUserid(logLoginUserId);
-		logService.saveLogData(log);
-		
-		
-		
+		try {
+			String logLoginName = "";
+			String logLoginUserId = "";
+		    HttpSession session = request.getSession();
+			if(session !=null && session.getAttribute("userName")!=null) {
+				logLoginName =  session.getAttribute("userName").toString();
+				logLoginUserId =  session.getAttribute("userId").toString();
+			}
+		    uuid = UUIDUtils.getUUID();
+			//日志处理
+			log.setLogId(uuid);
+			log.setLogCreateTime(new Date());
+			log.setLogRequestAttributes(JSONArray.toJSONString(parameter));
+			log.setLogRequestClientip(clientIp);
+			log.setLogRequestSessionid(sessionId);
+			log.setLogRequestStarttime(new Date());
+			log.setLogRequestUrl(uri);
+			log.setLogLoginName(logLoginName);
+			log.setLogLoginUserid(logLoginUserId);
+			
+		}catch (Exception e) {
+			log.setLogException(e.getMessage().substring(0, 100));
+		}finally {
+			logService.saveLogData(log);
+		}
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		//日志处理
+		log.setLogId(uuid);
+		//更新结束时间
+		log.setLogRequestEndtime(new Date());
+		logService.updateEndTime(log);
+		
 		HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 	}
 

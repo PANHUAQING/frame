@@ -15,6 +15,7 @@
     <result column="log_exception" property="logException" jdbcType="VARCHAR" />
   </resultMap>
  
+ <!-- 保存日志数据 -->
   <insert id="insertLogData" parameterType="com.phq.frame.domain.master.TbLog" >
     insert into tb_log (log_id, log_request_url, log_request_attributes, 
       log_request_sessionid, log_request_clientip, 
@@ -28,18 +29,12 @@
       #{logException,jdbcType=VARCHAR})
   </insert>
   
-  <update id="updateByPrimaryKey" parameterType="com.phq.frame.domain.master.TbLog" >
+  <!-- 更新日志请求结束时间 -->
+  <update id="updateEndTimeByPrimaryKey" parameterType="com.phq.frame.domain.master.TbLog" >
     update tb_log
-    set log_request_url = #{logRequestUrl,jdbcType=VARCHAR},
-      log_request_attributes = #{logRequestAttributes,jdbcType=VARCHAR},
-      log_request_sessionid = #{logRequestSessionid,jdbcType=VARCHAR},
-      log_request_clientip = #{logRequestClientip,jdbcType=VARCHAR},
-      log_request_starttime = #{logRequestStarttime,jdbcType=TIMESTAMP},
-      log_request_endtime = #{logRequestEndtime,jdbcType=TIMESTAMP},
-      log_login_userid = #{logLoginUserid,jdbcType=VARCHAR},
-      log_login_name = #{logLoginName,jdbcType=VARCHAR},
-      log_create_time = #{logCreateTime,jdbcType=TIMESTAMP},
-      log_exception = #{logException,jdbcType=VARCHAR}
+    set 
+      log_request_endtime = #{logRequestEndtime,jdbcType=TIMESTAMP}
+    
     where log_id = #{logId,jdbcType=VARCHAR}
   </update>
 </mapper>

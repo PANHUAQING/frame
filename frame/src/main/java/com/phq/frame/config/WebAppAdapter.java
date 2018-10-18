@@ -39,19 +39,20 @@ public class WebAppAdapter  extends WebMvcConfigurerAdapter{
 		//1.添加拦截器对菜单进行拦截
         registry.addInterceptor(new MenuInterceptor(menuSevice,redisUtil))
         //针对以下的请求头进行拦截
-        .addPathPatterns("/blog/blogController/**")
+        .addPathPatterns("/blog/**")
         .addPathPatterns("/index/**")
         .addPathPatterns("/");
         
         //2.添加session登录判断拦截器
-        registry.addInterceptor(new SessionInterceptor())
+       /* registry.addInterceptor(new SessionInterceptor())
          //不拦截登录
         .excludePathPatterns("/login/**")
         //拦截后台页面 不登陆不让操作
         .addPathPatterns("/backstage/**")
         //不拦截静态文件
-        .excludePathPatterns("/backstage/images/**");
-        
+        .excludePathPatterns("/backstage/images/**")
+        .excludePathPatterns("/blog/**");
+        */
         
         //3.添加日志拦截器 记录操作日志
         registry.addInterceptor(new LogInterceptor(logService))
@@ -59,7 +60,13 @@ public class WebAppAdapter  extends WebMvcConfigurerAdapter{
         .addPathPatterns("/backstage/**")
         .addPathPatterns("/login/**")
         .addPathPatterns("/blog/blogController/**")
-        .addPathPatterns("/index/**");
+        .addPathPatterns("/index/**")
+        //排除不进行拦截的
+        .excludePathPatterns("/blog/**/images/**")
+        .excludePathPatterns("/blog/**/js/**")
+        .excludePathPatterns("/backstage/images/**")
+        .excludePathPatterns("/backstage/js/**")
+        ;
 
 	}
 
