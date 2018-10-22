@@ -14,6 +14,7 @@ public interface TbArticleMapper {
 	public void insertArticleData(TbArticle tbArticle) throws Exception;
 	//更新阅读次数
 	public void updateReadNumByPrimaryKey(TbArticle tbArticle) throws Exception;
+	//更新喜欢度
 	public void updateReadLikeByPrimaryKey(TbArticle tbArticle) throws Exception;
 	//根据主键删除
 	public void deleteByPrimaryKey(String  articleId) throws Exception;

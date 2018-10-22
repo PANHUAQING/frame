@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,14 +47,18 @@ public class ArticleController {
 		TbArticle  tbArticle  = new TbArticle();
 		tbArticle.setArticleId(articleId);
 		articleService.updateReadNum(tbArticle);
-		return new ResultModel(Contants.WEB_SUCCESS_CODE,Contants.WEB_SUCCESS_MSG);
+		TbArticle  tbArticleUpdate = articleService.selectTbArticleById(articleId);
+		return new ResultModel(Contants.WEB_SUCCESS_CODE,tbArticleUpdate.getArticleReadNum()+"");
 	}
 	//更改阅读次数
 	@RequestMapping(value = "/doChangeReadLike")
+	@ResponseBody
 	public ResultModel  doChangeReadLike(@RequestParam(name = "articleId")String  articleId) throws Exception {
 		TbArticle  tbArticle  = new TbArticle();
 		tbArticle.setArticleId(articleId);
-		articleService.updateReadNum(tbArticle);
-		return new ResultModel(Contants.WEB_SUCCESS_CODE,Contants.WEB_SUCCESS_MSG);
+		articleService.doChangeReadLike(tbArticle);
+		TbArticle  tbArticleUpdate = articleService.selectTbArticleById(articleId);
+	
+		return new ResultModel(Contants.WEB_SUCCESS_CODE,tbArticleUpdate.getArticleReadLike()+"");
 	}
 }

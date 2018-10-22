@@ -44,7 +44,8 @@ public class MenuInterceptor implements HandlerInterceptor {
 		    if(redisUtil.hasKey("menuList")) {
 		    	Object menu = redisUtil.get("menuList");
 				List<TbMenuVo> menuListRedis  =  (List<TbMenuVo>) JsonUtil.strToList(menu.toString(), TbMenuVo.class);
-				modelAndView.addObject("menuList",menuListRedis);
+				request.setAttribute("menuList",menuListRedis);
+				//modelAndView.addObject("menuList",menuListRedis);
 		    }else {
 				if(menuSevice!=null) {
 					List<TbMenuVo> menuList =   menuSevice.getTbMenuVoList();
@@ -53,13 +54,15 @@ public class MenuInterceptor implements HandlerInterceptor {
 					Object menu = redisUtil.get("menuList");
 					
 					List<TbMenuVo> menuListRedis  =  (List<TbMenuVo>) JsonUtil.strToList(menu.toString(), TbMenuVo.class);
-					modelAndView.addObject("menuList",menuListRedis);
+					request.setAttribute("menuList",menuListRedis);
+					//modelAndView.addObject("menuList",menuListRedis);
 				}
 		    }
 		}catch (Exception e) {
 			if(menuSevice!=null) {
 					List<TbMenuVo> menuList =   menuSevice.getTbMenuVoList();
-					modelAndView.addObject("menuList",menuList);
+					request.setAttribute("menuList",menuList );
+					//modelAndView.addObject("menuList",menuList);
 			}
 		}
 		
