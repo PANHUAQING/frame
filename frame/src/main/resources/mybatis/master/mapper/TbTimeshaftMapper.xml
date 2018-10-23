@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.phq.frame.mapper.master.TbTimeshaftMapper" >
+  <resultMap id="BaseResultMap" type="com.phq.frame.domain.master.TbTimeshaft" >
+    <id column="tmie_id" property="tmieId" jdbcType="VARCHAR" />
+    <result column="time_title" property="timeTitle" jdbcType="VARCHAR" />
+    <result column="time_content" property="timeContent" jdbcType="VARCHAR" />
+    <result column="time_issue_time" property="timeIssueTime" jdbcType="DATE" />
+    <result column="time_url" property="timeUrl" jdbcType="VARCHAR" />
+    <result column="time_issue_tag" property="timeIssueTag" jdbcType="VARCHAR" />
+    <result column="time_isuse" property="timeIsuse" jdbcType="INTEGER" />
+    <result column="time_create_time" property="timeCreateTime" jdbcType="TIMESTAMP" />
+    <result column="time_create_user" property="timeCreateUser" jdbcType="VARCHAR" />
+    <result column="strTimeIssueTime" property="strTimeIssueTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- sql 片段 -->
+  <sql id="Base_Column_List" >
+    tmie_id, time_title, time_content, time_issue_time, time_url, time_issue_tag, time_isuse, 
+    time_create_time, time_create_user
+  </sql>
+  
+  <!-- 保存时间轴数据 -->
+  <insert id="insertTimeShaftData" parameterType="com.phq.frame.domain.master.TbTimeshaft" >
+    insert into tb_timeshaft (tmie_id, time_title, time_content, 
+      time_issue_time, time_url, time_issue_tag, 
+      time_isuse, time_create_time, time_create_user
+      )
+    values (#{tmieId,jdbcType=VARCHAR}, #{timeTitle,jdbcType=VARCHAR}, #{timeContent,jdbcType=VARCHAR}, 
+      #{timeIssueTime,jdbcType=DATE}, #{timeUrl,jdbcType=VARCHAR}, #{timeIssueTag,jdbcType=VARCHAR}, 
+      #{timeIsuse,jdbcType=INTEGER}, #{timeCreateTime,jdbcType=TIMESTAMP}, #{timeCreateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <!-- 查询时间轴集合数据 -->
+  <select id="selectTimeShaftDataList"   parameterType="com.phq.frame.domain.master.TbTimeshaft" resultMap="BaseResultMap">
+     select
+     <include refid="Base_Column_List"/>
+     ,DATE_FORMAT(t.time_issue_time,'%Y-%m-%d') strTimeIssueTime
+     from tb_timeshaft t 
+     order by t.time_create_time desc 
+     limit  #{pageIndex},#{pageSize}
+  
+  </select>
+  
+  <!-- 查询时间轴集合总记录数-->
+  <select id="selectTimeShaftDataCount"   parameterType="com.phq.frame.domain.master.TbTimeshaft" resultType="java.lang.Integer">
+     select
+     count(*)
+     from tb_timeshaft t 
+  </select>
+ 
+</mapper>

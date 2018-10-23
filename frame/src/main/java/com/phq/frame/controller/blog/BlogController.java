@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.phq.frame.domain.master.TbArticle;
+import com.phq.frame.domain.master.TbTimeshaft;
 import com.phq.frame.service.master.ArticleService;
+import com.phq.frame.service.master.TimeshaftService;
 /**
  * 
 * @ClassName: BlogController
@@ -21,7 +23,11 @@ import com.phq.frame.service.master.ArticleService;
 @RestController
 @RequestMapping(value ="/blog/blogController")
 public class BlogController {
-	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BlogController.class);
+	
+	@Autowired
+	private TimeshaftService timeshaftService;
+	
 	@Autowired
 	private ArticleService articleService;
 	//关于自己
@@ -39,8 +45,35 @@ public class BlogController {
 	
 	//时间轴
 	@RequestMapping(value = "/timeLine")
-	public ModelAndView timeLine(ModelAndView mv) {
+	public ModelAndView timeLine(ModelAndView mv) throws Exception {
+		
+		TbTimeshaft tbTimeshaft = new TbTimeshaft();
+		 int total =timeshaftService.getTbTimeshaftCount(tbTimeshaft);
+	    Integer pageNum = 0;
+	    Integer liNums = 0;
+	    
+	    if(total<= 15) {
+	    	pageNum = 1;
+	    }else if(total%15>0) { //余数大于0
+	    	pageNum = total/15+1;
+	    }else {
+	    	pageNum = total/15;
+	    }
+	    
+	    //一排含有几页
+	    if(pageNum<7) {
+	    	liNums = pageNum ;
+	    }else if(pageNum%7 >0) {
+	    	liNums = ((pageNum/7)+1)*7;
+	    }else {
+	    	liNums = (pageNum/7)*7;
+	    }
+	    
+	    
 		mv.setViewName("blog/time");
+		mv.addObject("totalPages", pageNum);
+		mv.addObject("liNums", liNums);
+		
 		return mv;
 	}
 	
