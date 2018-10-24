@@ -34,7 +34,7 @@ public class ArticleController {
 	//文章点击跳转到内容模块
 	@RequestMapping(value = "/jumpInfo/{articleId}")
 	public ModelAndView jumpInfo(ModelAndView mv, @PathVariable(name = "articleId")String  articleId) throws Exception {
-		logger.info(articleId+".,....");
+		logger.info(articleId+".....");
 		//通过文章主键获取文章的详情信息
 		TbArticle  tbArticle = articleService.selectTbArticleById(articleId);
 		mv.setViewName("blog/info");
@@ -50,7 +50,7 @@ public class ArticleController {
 		TbArticle  tbArticleUpdate = articleService.selectTbArticleById(articleId);
 		return new ResultModel(Contants.WEB_SUCCESS_CODE,tbArticleUpdate.getArticleReadNum()+"");
 	}
-	//更改阅读次数
+	//更改阅喜欢的次数
 	@RequestMapping(value = "/doChangeReadLike")
 	@ResponseBody
 	public ResultModel  doChangeReadLike(@RequestParam(name = "articleId")String  articleId) throws Exception {

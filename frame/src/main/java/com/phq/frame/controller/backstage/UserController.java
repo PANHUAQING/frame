@@ -16,9 +16,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value ="/backstage/userController")
 public class UserController {
 
-	@RequestMapping(value ="/getUserList")
-	public String getUserList() {
-		
-		return "测试拦截";
-	}
 }
