@@ -18,9 +18,9 @@ public interface TbArticleMapper {
 	public void updateReadLikeByPrimaryKey(TbArticle tbArticle) throws Exception;
 	//根据主键删除
 	public void deleteByPrimaryKey(String  articleId) throws Exception;
-	
+	//根据主键获取文章信息
 	public TbArticle selectByPrimaryKey(String  articleId) throws Exception;
-	
+	//获取最新的文章
 	public TbArticle selectArticleFirst() throws Exception;
 	
 }

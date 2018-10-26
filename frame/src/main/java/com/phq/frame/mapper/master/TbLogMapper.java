@@ -16,6 +16,8 @@ import com.phq.frame.domain.master.TbLog;
 public interface TbLogMapper {
 	//日志保存到数据库
     public void insertLogData(TbLog log) throws Exception;
+    //删除表数据
+    public void deleteLogData(TbLog log) throws Exception;
     //跟新日志请求结束时间
     public void updateEndTimeByPrimaryKey(TbLog log) throws Exception;
 }

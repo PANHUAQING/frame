@@ -11,4 +11,6 @@ public interface LogService {
 	public void saveLogData(TbLog log) throws Exception;
 	//更新结束时间
 	public void updateEndTime(TbLog log) throws Exception;
+	
+	public void deleteLogData(TbLog log) throws Exception;
 }

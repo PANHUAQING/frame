@@ -46,4 +46,9 @@ public class LogServiceImpl implements LogService {
 	public void updateEndTime(TbLog log) throws Exception {
 		tbLogMapper.updateEndTimeByPrimaryKey(log);
 	}
+	
+	@Override
+	public void deleteLogData(TbLog log) throws Exception {
+		tbLogMapper.deleteLogData(log);
+	}
 }

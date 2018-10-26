@@ -11,7 +11,6 @@ public interface ArticleService {
 
 	//查询文章列表
 	public  List<TbArticle> selectArticleList(TbArticle tbArticle)  throws Exception;
-	
 	//通过文章主键获取文章信息
 	public TbArticle selectTbArticleById(String articleId)  throws Exception;
 	//获取第一条

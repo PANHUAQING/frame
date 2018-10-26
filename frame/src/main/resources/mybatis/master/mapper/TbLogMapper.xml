@@ -37,4 +37,10 @@
     
     where log_id = #{logId,jdbcType=VARCHAR}
   </update>
+  
+  <!-- 删除日志信息 -->
+  <delete id="deleteLogData" parameterType="com.phq.frame.domain.master.TbLog" >
+       delete   from  tb_log  
+  </delete>
+  
 </mapper>
