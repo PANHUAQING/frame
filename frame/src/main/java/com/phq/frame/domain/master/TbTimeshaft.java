@@ -2,6 +2,11 @@ package com.phq.frame.domain.master;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
 import com.phq.frame.common.domain.PageModel;
 /**
  * 
@@ -12,20 +17,31 @@ import com.phq.frame.common.domain.PageModel;
 * @date 2018年10月22日
 *
  */
+@Document(indexName="frame",type="TbTimeshaft",shards = 1,replicas = 1)
 public class TbTimeshaft extends PageModel {
+	
+	@Id
+    private String id;
+	
 	
     private String tmieId;
 
+    @Field(type = FieldType.Text)
     private String timeTitle;
 
+    @Field(type = FieldType.Text)
     private String timeContent;
 
+    @Field(type = FieldType.Date)
     private Date timeIssueTime;
-
+    
+    @Field(type = FieldType.Text)
     private String timeUrl;
-
+    
+    @Field(type = FieldType.Text)
     private String timeIssueTag;
 
+    @Field(type = FieldType.Integer)
     private Integer timeIsuse;
 
     private Date timeCreateTime;
@@ -35,7 +51,15 @@ public class TbTimeshaft extends PageModel {
     private String strTimeIssueTime;
 
     
-    public String getStrTimeIssueTime() {
+    public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getStrTimeIssueTime() {
 		return strTimeIssueTime;
 	}
 
@@ -114,4 +138,5 @@ public class TbTimeshaft extends PageModel {
     public void setTimeCreateUser(String timeCreateUser) {
         this.timeCreateUser = timeCreateUser == null ? null : timeCreateUser.trim();
     }
+
 }

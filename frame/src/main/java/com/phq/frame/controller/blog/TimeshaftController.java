@@ -1,6 +1,8 @@
 package com.phq.frame.controller.blog;
 
 import java.util.List;
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.phq.frame.common.constant.Contants;
 import com.phq.frame.common.domain.ResultModel;
 import com.phq.frame.domain.master.TbTimeshaft;
+import com.phq.frame.service.es.ESTimeShaftRepository;
 import com.phq.frame.service.master.TimeshaftService;
 /**
  * 
@@ -27,6 +30,11 @@ public class TimeshaftController {
 
 	@Autowired
 	private TimeshaftService timeshaftService;
+	
+	@Autowired
+	private ESTimeShaftRepository eSTimeShaftRepository;
+	
+	
 	/**
 	 * @throws Exception 
 	 * 
@@ -67,5 +75,25 @@ public class TimeshaftController {
 		timeshaftService.saveTimeShaftData(tbTimeshaft);
 		return new ResultModel(Contants.WEB_SUCCESS_CODE,"数据保存成功!");
 	}
+	
+	@RequestMapping("/test")
+	public  void  test() {
+		
+	  TbTimeshaft tbTimeshaft = new TbTimeshaft();
+	  tbTimeshaft.setId("111");
+	  tbTimeshaft.setTimeContent("wewe");
+	  tbTimeshaft.setTimeUrl("43434");
+		eSTimeShaftRepository.save(tbTimeshaft);
+	}
+	
+
+	@RequestMapping("/query")
+	public  Optional<TbTimeshaft>   query() {
+		
+	  Optional<TbTimeshaft> tbTimeshaft =  eSTimeShaftRepository.findById("111");
+	
+	 return tbTimeshaft;
+	}
+	
 	
 }
