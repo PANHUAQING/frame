@@ -1,12 +1,20 @@
 package com.phq.frame.controller.blog;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.phq.frame.common.constant.Contants;
@@ -14,6 +22,8 @@ import com.phq.frame.common.domain.ResultModel;
 import com.phq.frame.domain.master.TbTimeshaft;
 import com.phq.frame.service.es.ESTimeShaftRepository;
 import com.phq.frame.service.master.TimeshaftService;
+
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * 
 * @ClassName: TimeshaftController
@@ -25,6 +35,7 @@ import com.phq.frame.service.master.TimeshaftService;
  */
 @RestController
 @RequestMapping(value ="/blog/timeshaftController")
+@EnableSwagger2
 public class TimeshaftController {
 	private static final Logger logger = LoggerFactory.getLogger(TimeshaftController.class);
 
@@ -76,24 +87,48 @@ public class TimeshaftController {
 		return new ResultModel(Contants.WEB_SUCCESS_CODE,"数据保存成功!");
 	}
 	
-	@RequestMapping("/test")
+	@RequestMapping("/esAdd")
 	public  void  test() {
+	  for(int i=0;i<200;i++) {
+		  TbTimeshaft tbTimeshaft = new TbTimeshaft();
+		  tbTimeshaft.setTmieId("111"+i);
+		  tbTimeshaft.setTimeContent("wewe"+i);
+		  tbTimeshaft.setTimeUrl("43434"+i);
+		  eSTimeShaftRepository.save(tbTimeshaft);
+	  }
 		
-	  TbTimeshaft tbTimeshaft = new TbTimeshaft();
-	  tbTimeshaft.setId("111");
-	  tbTimeshaft.setTimeContent("wewe");
-	  tbTimeshaft.setTimeUrl("43434");
-		eSTimeShaftRepository.save(tbTimeshaft);
 	}
 	
 
-	@RequestMapping("/query")
-	public  Optional<TbTimeshaft>   query() {
+	@RequestMapping("/esQueryById")
+	public  Optional<TbTimeshaft>   esQueryById() {
 		
 	  Optional<TbTimeshaft> tbTimeshaft =  eSTimeShaftRepository.findById("111");
 	
 	 return tbTimeshaft;
 	}
+
+	@RequestMapping("/esQueryPage")
+	public Page<TbTimeshaft>  esQueryPage() {
+		
+		
+		Pageable  pageable= new PageRequest(0,200);
+		Page<TbTimeshaft>  tbTimeshaft = eSTimeShaftRepository.findAll(pageable);
 	
+	 return tbTimeshaft;
+	}
+	
+	
+	@RequestMapping("/esQueryPageAndSearch")
+	public Page<TbTimeshaft>  esQueryPageAndSearch() {
+		
+		Pageable  pageable= new PageRequest(0,200);
+		Page<TbTimeshaft>  tbTimeshaft = eSTimeShaftRepository.findAll(pageable);
+	
+		
+		QueryBuilder query =null;;
+		eSTimeShaftRepository.search(query);
+	 return tbTimeshaft;
+	}
 	
 }

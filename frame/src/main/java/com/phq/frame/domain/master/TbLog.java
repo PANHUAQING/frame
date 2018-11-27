@@ -2,7 +2,17 @@ package com.phq.frame.domain.master;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
+@Document(indexName="frame_tbLog",type="tbLog",shards = 5,replicas = 1)
 public class TbLog {
+	
+
+	@Id
+    private String id;
+	
+	
     private String logId;
 
     private String logRequestUrl;
