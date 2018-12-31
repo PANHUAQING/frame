@@ -31,7 +31,7 @@ public class LogServiceImpl implements LogService {
 	* @throws
 	 */
 	public void saveLogData(TbLog log) throws Exception {
-		tbLogMapper.insertLogData(log);
+		//tbLogMapper.insertLogData(log);
 	}
 	/**
 	 * @throws Exception 

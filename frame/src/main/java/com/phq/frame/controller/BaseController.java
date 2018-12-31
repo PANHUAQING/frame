@@ -1,7 +1,9 @@
 package com.phq.frame.controller;
 import java.util.List;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,32 +22,26 @@ import com.phq.frame.service.master.ArticleService;
 @RestController
 public class BaseController {
 	
-	@Autowired
-	private ArticleService articleService;
 	//博客首页跳转
 	@RequestMapping(value = "/")
 	public ModelAndView indexShow(ModelAndView mv) throws Exception {
 		//获取文章
-	    List<TbArticle>  articleList  = articleService.selectArticleList(new TbArticle());
-	    mv.setViewName("blog/index");
-	    mv.addObject("articleList", articleList);
+		mv.setViewName("backstage/login");
 	    return mv;
 	}
 		
-	//博客首页跳转
+	//博首页跳转
 	@RequestMapping(value = "/index")
 	public ModelAndView index(ModelAndView mv) throws Exception {
-	    mv.setViewName("blog/index");
-	    List<TbArticle>  articleList  = articleService.selectArticleList(new TbArticle());
-	    mv.addObject("articleList", articleList);
+	    mv.setViewName("backstage/index");
 	    return mv;
 	}
 	
-	//博客后台登录
+	//后台登录
 	@RequestMapping(value = "/login")
 	public ModelAndView login(ModelAndView mv) {
-	    mv.setViewName("backstage/login");
 	    return mv;
 	}
 	
+
 }

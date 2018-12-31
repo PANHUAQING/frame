@@ -1,4 +1,4 @@
-package com.phq.frame.util;
+package com.phq.frame.common.framework.redis;
 
 import java.util.List;
 import java.util.Map;

@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import com.phq.frame.util.RedisUtil;
+import com.phq.frame.common.framework.redis.RedisUtil;
 
 import redis.clients.jedis.JedisPoolConfig;
 

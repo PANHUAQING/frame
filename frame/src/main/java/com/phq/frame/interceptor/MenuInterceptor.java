@@ -5,10 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.phq.frame.common.framework.redis.RedisUtil;
 import com.phq.frame.domain.master.vo.TbMenuVo;
 import com.phq.frame.service.master.MenuSevice;
 import com.phq.frame.util.JsonUtil;
-import com.phq.frame.util.RedisUtil;
+
 import net.sf.json.JSONArray;
 
 /**

@@ -5,12 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.phq.frame.common.framework.redis.RedisUtil;
 import com.phq.frame.interceptor.LogInterceptor;
 import com.phq.frame.interceptor.MenuInterceptor;
 import com.phq.frame.interceptor.SessionInterceptor;
 import com.phq.frame.service.master.LogService;
 import com.phq.frame.service.master.MenuSevice;
-import com.phq.frame.util.RedisUtil;
 /**
  * 
 * @ClassName: WebAppAdapter
@@ -65,8 +65,7 @@ public class WebAppAdapter  extends WebMvcConfigurerAdapter{
         .excludePathPatterns("/blog/**/images/**")
         .excludePathPatterns("/blog/**/js/**")
         .excludePathPatterns("/backstage/images/**")
-        .excludePathPatterns("/backstage/js/**")
-        ;
+        .excludePathPatterns("/backstage/js/**");
 
 	}
 

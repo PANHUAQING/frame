@@ -19,6 +19,11 @@ public class ResultModel implements Serializable{
 	private int    result_total; //返回总条数
 	
 	
+	
+	public ResultModel() {
+		super();
+	}
+
 	public ResultModel(String result_code, String result_msg) {
 		super();
 		this.result_code = result_code;
