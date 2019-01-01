@@ -1,6 +1,7 @@
 package com.phq.frame.common.framework.secrity;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.github.pagehelper.StringUtil;
 
@@ -16,6 +17,7 @@ public class BCryptPasswordUtil {
 	
 	//声明加密主对象
 	private final static BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
+	
     
 	/**
 	 * 
@@ -49,10 +51,10 @@ public class BCryptPasswordUtil {
 			return false;
 		}
 		
-		/*if (encode.matches(loginPassword, dbPassword)) {
+		if (encode.matches(loginPassword, dbPassword)) {
 			return true;
-		}*/
-		return true;
+		}
+		return false;
 	}
 
 }

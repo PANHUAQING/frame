@@ -32,9 +32,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		  http
           //.addFilterBefore(UserDefinedSecrityFilter, FilterSecurityInterceptor.class)//在正确的位置添加我们自定义的过滤器
-          .csrf().disable()
+          .csrf().disable() //关闭跨域检测
           .authorizeRequests()
-          .antMatchers("/", "/error").permitAll()//访问：/ /error 无需登录认证权限
+          .antMatchers("/", "/img/**","/backstage/css/**"
+        		  ,"/backstage/js/**","/backstage/images/**","/backstage/skin/**","/backstage/font/**")
+          .permitAll()//访问：/ /error 无需登录认证权限
+          .antMatchers("/swagger-ui.htm").permitAll()//访问：/ /error 无需登录认证权限
           //其他地址的访问均需验证权限
           .anyRequest().authenticated()//其他所有资源都需要认证，登陆后访问
           
@@ -43,9 +46,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
               //指定登录页是"/login"
               .loginPage("/")
               .loginProcessingUrl("/login") //自定义默认登录接口
-              //.defaultSuccessUrl("/index")//登录成功后默认跳转到"/index"
+              .defaultSuccessUrl("/index",true)//登录成功后默认跳转到"/index" 地址栏改变
               //.successHandler(loginSuccessHandler())
-              .successForwardUrl("/index") //登录成功跳转首页
+              //.successForwardUrl("/index") //登录成功跳转首页
               .failureHandler(secrityFailureHandler()) //定义失败的handler 用于返回数据到页面
               //.failureUrl("/error")
               .permitAll()

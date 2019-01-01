@@ -39,7 +39,7 @@ public class SysUserDetailsService implements UserDetailsService{
 		}
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		
-		 Set<SysRole> roles = sysUser.getRoles();
+		 List<SysRole> roles = sysUser.getRoles();
          //角色为空的情况写
          if (roles.isEmpty()) {
         	 authorities.add(new SimpleGrantedAuthority("ROLE_NOTAUTH"));
@@ -50,7 +50,7 @@ public class SysUserDetailsService implements UserDetailsService{
          }
 		//3.允许的情况下 获取用户的相关权限 对权限进行处理
 		
-		return new User(sysUser.getUserName(),sysUser.getPassword(), authorities);
+		return new User(sysUser.getLoginname(),sysUser.getPassword(), authorities);
 	}
 
 }

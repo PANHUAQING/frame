@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.phq.frame.mapper.master.SysResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.phq.frame.domain.master.SysResource" >
+    <id column="res_id" property="resId" jdbcType="INTEGER" />
+    <result column="res_name" property="resName" jdbcType="VARCHAR" />
+    <result column="res_url" property="resUrl" jdbcType="VARCHAR" />
+    <result column="res_desc" property="resDesc" jdbcType="VARCHAR" />
+    <result column="res_icon" property="resIcon" jdbcType="VARCHAR" />
+    <result column="res_pid" property="resPid" jdbcType="INTEGER" />
+    <result column="res_status" property="resStatus" jdbcType="INTEGER" />
+    <result column="res_type" property="resType" jdbcType="INTEGER" />
+    <result column="res_seq" property="resSeq" jdbcType="INTEGER" />
+    <result column="res_createdate" property="resCreatedate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    res_id, res_name, res_url, res_desc, res_icon, res_pid, res_status, res_type, res_seq, 
+    res_createdate
+  </sql>
+  
+  <!-- 查询sql片段 -->
+  <sql id="sql_selectReourse_where">
+             <if test="loginname !=null and loginname !='' ">
+                 and u.loginname = #{loginname}
+            </if>
+             <if test="resPid !=null and resPid !='' ">
+                 and res.res_pid = #{resPid}
+            </if>
+  </sql>
+
+<!-- 获取资源通过id -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_resource
+    where res_id = #{resId}
+  </select>
+  
+  <!-- 获取当前用户的资源权限 -->
+  <select id="selectResourseListByUserId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT
+		u.loginname userName,
+		res.res_id,
+		res.res_name,
+		res.res_url,
+		res.res_desc,
+		res.res_pid
+		from  sys_resource res
+		inner join sys_role_resource rr on rr.resource_id = res.res_id 
+		inner join sys_user_role   ur  on rr.role_id = ur.role_id
+		inner join sys_user u       on ur.user_id = u.id
+		where  
+		  res.res_status =  1 
+          and u.status = 1
+       <include refid="sql_selectReourse_where"/>
+     
+  </select>
+  
+  <!-- 根据用户权限获取菜单总记录数  -->
+  <select id="selectResourseListTotalByUserId" resultType="java.lang.Integer" parameterType="java.util.Map" >
+      SELECT
+		count(1)
+		from  sys_resource res
+		inner join sys_role_resource rr on rr.resource_id = res.res_id 
+		inner join sys_user_role   ur  on rr.role_id = ur.role_id
+		inner join sys_user u       on ur.user_id = u.id
+		where  
+		  res.res_status =  1 
+          and u.status = 1
+    <include refid="sql_selectReourse_where"/>
+    
+  </select>
+  
+  
+  
+   <!-- 获取所有资源数据-->
+  <select id="selectResourseListData" resultMap="BaseResultMap" parameterType="java.util.Map" >
+      SELECT
+		<include refid="Base_Column_List"/>
+		from  sys_resource res
+		where  res.res_status =  1 
+       <include refid="sql_selectReourse_where"/>
+        limit  #{pageIndex},#{pageSize}
+  </select>
+  
+  
+   <!-- 获取所有资源总记录数-->
+  <select id="selectResourseListTotal" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    SELECT
+		count(1)
+		from  sys_resource res
+		where  res.res_status =  1 
+       <include refid="sql_selectReourse_where"/>
+     
+  </select>
+  
+  <!-- 删除资源  -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_resource
+    where res_id = #{resId}
+  </delete>
+  
+  <!-- 保存 -->
+  <insert id="saveResource" parameterType="java.util.Map" >
+    insert into sys_resource (res_name, res_url, 
+      res_desc, res_icon, res_pid, 
+      res_status, res_type, res_seq, 
+      res_createdate)
+    values (#{resName}, #{resUrl}, 
+      #{resDesc,jdbcType=VARCHAR}, #{resIcon}, #{resPid}, 
+      1, 1, #{resSeq},sysdate)
+  </insert>
+ 
+ <!-- 更新 -->
+  <update id="updateResourceByPrimaryKey" parameterType="java.util.Map" >
+    update sys_resource
+    set res_name = #{resName},
+      res_url = #{resUrl},
+      res_desc = #{resDesc},
+      res_icon = #{resIcon},
+      res_pid = #{resPid},
+      res_status = #{resStatus},
+      res_type = #{resType},
+      res_seq = #{resSeq},
+      res_createdate = #{resCreatedate}
+    where res_id = #{resId}
+  </update>
+  
+</mapper>

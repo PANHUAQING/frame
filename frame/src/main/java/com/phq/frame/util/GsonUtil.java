@@ -1,5 +1,6 @@
 package com.phq.frame.util;
 
+import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
@@ -193,6 +195,33 @@ public class GsonUtil {
         return jsonObj;
     }
 	
+    /**
+     * 
+    * @Title: beanToMap
+    * @Description: 
+    *     实体对象转Map
+    * @param @param obj
+    * @param @return    
+    * @return Map<String,Object>    
+    * @throws
+     */
+    public static Map<String, Object> beanToMap(Object obj) { 
+        Map<String, Object> params = new HashMap<String, Object>(0); 
+        try { 
+            PropertyUtilsBean propertyUtilsBean = new PropertyUtilsBean(); 
+            PropertyDescriptor[] descriptors = propertyUtilsBean.getPropertyDescriptors(obj); 
+            for (int i = 0; i < descriptors.length; i++) { 
+                String name = descriptors[i].getName(); 
+                if (!"class".equals(name)) { 
+                    params.put(name, propertyUtilsBean.getNestedProperty(obj, name)); 
+                } 
+            } 
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        } 
+        return params; 
+}
+
 	
 	
 }

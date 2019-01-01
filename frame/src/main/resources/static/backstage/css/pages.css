@@ -2,7 +2,7 @@
 .pages-style  .leftModule.bk-con-menu .samebtn{border: 1px solid #dddddd;border-left: 1px solid #f2f2f2; background: #ffffff;}
 .pages-style .bk-con-menu{}
 .buttonstyle{padding: 15px; text-align: center;}
-/*******************************盒子样式*************************/
+/*******************************鐩掑瓙鏍峰紡*************************/
 .box-module{background: rgba(255,255,255,0.8); border-radius: 2px;box-shadow: 0 1px 3px rgba(0,0,0,0.1);margin: 10px; position: relative;}
 .box-module .box-title{ background:#ffffff;height: 40px; border-bottom: 1px solid #dddddd; line-height: 40px;font-size: 16px; padding: 0 15px;  position: relative;}
 .box-module .box-title i{position: absolute; right:15px; cursor: pointer;}
@@ -54,7 +54,7 @@
     -moz-opacity: 0.6;
     opacity: 0.6;
 }
-/*******************选项卡样式***********************/
+/*******************閫夐」鍗℃牱寮�***********************/
 .Tab-Module{border: 1px solid #DDDDDD;}
 .Tab-Module .tab_memu{ border-bottom: 1px solid #DDDDDD;}
 .Tab-Module .tab_memu li{border:0;border-right: 1px solid #DDDDDD; height: 40px; line-height: 40px; width: 100%;}
@@ -67,7 +67,7 @@
     vertical-align: top;
     resize: inherit;
 }
-/**************************图片放大样式***************************/
+/**************************鍥剧墖鏀惧ぇ鏍峰紡***************************/
 #zoom {
 	z-index: 99990;
 	position: fixed;
@@ -176,7 +176,7 @@
 .notes-detailed .detailed{border: 0px; resize: initial;}
 .notes-detailed .notestime{position: absolute; bottom: 10px; width: 100%;left: 0; text-align: right; right:0px; padding-right: 10px; color: #999999;}
 .detailedcontent .detailed{width: 100%;line-height: 30px;min-height: 30px; margin-bottom: 15px;height: initial;}
-/***********************列表展示s*********************/
+/***********************鍒楄〃灞曠ずs*********************/
 .brandlist .brand_operating{ background: #DDDDDD; height: 40px; line-height: 20px;}
 .brandlist .brand_operating .name_status{cursor: pointer; display: block; height: 40px; line-height: 40px; text-align: center; background: #43A047; color: #FFFFFF;min-width: 60px; float: left;}
 .brandlist .brand_operating .brand_operat{position:relative;right:10px;font-size: 18px; top:10px; color: #333333;cursor: pointer;float: right;  margin-left: 10px;}
@@ -189,7 +189,7 @@
 .brandlist .brand_operating .name_status.statusNO{background: #999999;}
 .menulist .sortname{height: 40px; line-height: 40px;padding: 0 20px; cursor:pointer;border-bottom: 1px dashed   #DDDDDD;}
 .boxcolor .clickBombbox.selected{color: #FFFFFF;}
-/***********************单页样式*******************/
+/***********************鍗曢〉鏍峰紡*******************/
 .Single_page{}
 .Single_page .Prompt{ border:1px solid #dddddd; padding:10px; line-height:24px;}
 .Single_page .Single_page_list li{ position:relative;  float:left; width:200px; min-height:200px; border:1px solid #dddddd; margin:10px; background-color:#ededed}
@@ -234,4 +234,4 @@ color:#FFF;
 
 }
 .Single_page .Single_page_list li  .time{ text-align:center; font-size:12px; font-weight:normal; color:#999; border-top:1px dashed #dddddd; line-height:30px; background-color:#FFF; position:absolute; bottom:0px; width:100%;}
-.Single_page .Single_page_list li .page_info{ padding:10px; color:#999999; font-size:12px;font-family: "新宋体";}
+.Single_page .Single_page_list li .page_info{ padding:10px; color:#999999; font-size:12px;font-family: "鏂板畫浣�";}

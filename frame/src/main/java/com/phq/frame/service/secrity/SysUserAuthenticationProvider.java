@@ -15,6 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.github.pagehelper.StringUtil;
 import com.phq.frame.common.framework.secrity.BCryptPasswordUtil;
 import com.phq.frame.domain.master.SysRole;
 import com.phq.frame.domain.master.SysUser;
@@ -52,11 +53,12 @@ public class SysUserAuthenticationProvider implements AuthenticationProvider {
 	   */
 	  public boolean vaildateUser(String loginName, String password, List<GrantedAuthority> grantedAuths) {
 		   SysUser user = userService.findByLoginName(loginName);
-	        if (user == null || loginName == null || password == null) {
+	        if (user==null || StringUtil.isEmpty(loginName) || StringUtil.isEmpty(password)) {
 	            return false;
 	        }
-	        if (BCryptPasswordUtil.passwordEncodeequals(BCryptPasswordUtil.passwordEncode(password), user.getPassword())) {
-	            Set<SysRole> roles = user.getRoles();
+	        //进行密码对比 密码正确给予权限 否则不允许登录
+	        if (BCryptPasswordUtil.passwordEncodeequals(password, user.getPassword())) {
+	            List<SysRole> roles = user.getRoles();
 	            //角色为空的情况写
 	            if (roles.isEmpty()) {
 	                grantedAuths.add(new SimpleGrantedAuthority("ROLE_NOTAUTH"));
