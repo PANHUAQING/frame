@@ -28,6 +28,7 @@ public class SysUser extends PageModel implements UserDetails {
     private Integer age;
 
     private String phone;
+    private String wechat;
 
     private Integer usertype;
 
@@ -49,6 +50,14 @@ public class SysUser extends PageModel implements UserDetails {
 	
 	public String getStrCreatedate() {
 		return strCreatedate;
+	}
+
+	public String getWechat() {
+		return wechat;
+	}
+
+	public void setWechat(String wechat) {
+		this.wechat = wechat;
 	}
 
 	public void setStrCreatedate(String strCreatedate) {

@@ -54,11 +54,11 @@
 							<a href="javascript:void(0)" class="skin-btn clickBombbox iconfont icon-pifushezhi" id="skin-btn"></a>
 							<div class="Bombbox">
 								<ul class="skin-list">
+									<!-- <li>
+										<a class="colorpick-btn" href="javascript:void(0)" data-val="black"  style="background-color:#222A2D"></a>
+									</li> -->
 									<li>
-										<a class="colorpick-btn" href="javascript:void(0)" data-val="black" id="default" style="background-color:#222A2D"></a>
-									</li>
-									<li>
-										<a class="colorpick-btn" href="javascript:void(0)" data-val="blue"  style="background-color:#438EB9;"></a>
+										<a class="colorpick-btn" href="javascript:void(0)" data-val="blue"  id="default" style="background-color:#438EB9;"></a>
 									</li>
 									<li>
 										<a class="colorpick-btn" href="javascript:void(0)" data-val="green" style="background-color:#72B63F;"></a>
@@ -95,7 +95,6 @@
                                           </label> -->
 											<button type="submit" class="login_btn" id="login_btn"> 登&nbsp;陆 </button>
 										</div>
-
 										<div class="space-4"><p  th:if="${param.error}" th:text="${param.error}"></p></div>
 									</fieldset>
 								</form>
@@ -161,7 +160,6 @@
 	$(function() {
 		$("#loginstyle").BKframe({
                //必须保留否则无法进行皮肤更换，以及兼容移动端
-               
 		})
 	});
 </script>

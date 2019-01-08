@@ -11,6 +11,7 @@
     <result column="sex" property="sex" jdbcType="INTEGER" />
     <result column="age" property="age" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
     <result column="usertype" property="usertype" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
@@ -29,12 +30,12 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, loginname, name, password, sex, age, phone, usertype, status, org_id, createdate, 
+    id, loginname, name, password, sex, age, phone,wechat, usertype, status, org_id, createdate, 
     seq
   </sql>
   
   <sql id="user_Column_List" >
-    id, loginname, name, sex, age, phone, status, createdate
+    id, loginname, name, sex, age, phone,wechat, status, createdate
   </sql>
   
    <sql id="role_Column_List" >
