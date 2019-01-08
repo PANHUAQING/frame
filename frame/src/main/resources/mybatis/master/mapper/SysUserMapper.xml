@@ -16,6 +16,7 @@
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
     <result column="createdate" property="createdate" jdbcType="TIMESTAMP" />
     <result column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="strCreatedate" property="strCreatedate" jdbcType="VARCHAR" />
   </resultMap>
   
   <resultMap id="role_ResultMap" type="com.phq.frame.domain.master.SysRole" >
@@ -32,6 +33,10 @@
     seq
   </sql>
   
+  <sql id="user_Column_List" >
+    id, loginname, name, sex, age, phone, status, createdate
+  </sql>
+  
    <sql id="role_Column_List" >
     role_id, role_name, role_type, role_desc, role_status, role_seq
   </sql>
@@ -43,7 +48,8 @@
  <!-- 获取用户数据集合 -->
   <select id="selectUserList" resultMap="BaseResultMap" parameterType="java.util.Map">
      SELECT
-		<include refid="Base_Column_List"/>
+		<include refid="user_Column_List"/>
+		,DATE_FORMAT(su.createdate,'%Y-%m-%d %H:%i:%s') strCreatedate
 		from sys_user su
 		where su.`status` = 1 
 		<include refid="sql_selectuser_where"/>

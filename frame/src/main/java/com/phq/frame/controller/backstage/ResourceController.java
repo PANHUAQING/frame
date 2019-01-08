@@ -12,7 +12,7 @@ import com.phq.frame.controller.BaseController;
 public class ResourceController extends BaseController {
 
 	public ModelAndView showResourcePage(ModelAndView mv) {
-		String user = this.getLoginUser();
+		User user = this.getLoginUser();
 		                            
 		mv.setViewName("blog/info");
 		mv.addObject("article", "");

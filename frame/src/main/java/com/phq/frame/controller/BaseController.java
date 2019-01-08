@@ -3,8 +3,6 @@ package com.phq.frame.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -17,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.phq.frame.common.framework.redis.RedisUtil;
 import com.phq.frame.domain.master.SysResource;
+import com.phq.frame.domain.master.SysUser;
 import com.phq.frame.domain.master.TbArticle;
 import com.phq.frame.service.master.ArticleService;
 import com.phq.frame.service.master.SysResourceService;
+import com.phq.frame.service.master.UserService;
 
 /**
  * 
@@ -39,7 +39,9 @@ public class BaseController {
 	@Autowired
 	private SysResourceService sysResourceService;
 
-
+	@Autowired
+	private UserService userService;
+	
 	// 博客首页跳转
 	@RequestMapping(value = "/")
 	public ModelAndView indexShow(ModelAndView mv) throws Exception {
@@ -52,12 +54,14 @@ public class BaseController {
 	@RequestMapping(value = "/index")
 	public ModelAndView index(ModelAndView mv) throws Exception {
 		// 首页跳转时获取当前登录用户
-		String userName = getLoginUser();
+		User user = getLoginUser();
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("loginname", userName == null ? "" : userName);
+		param.put("loginname", user.getUsername() == null ? "" : user.getUsername() );
 		List<SysResource> reourceList = sysResourceService.getSysResourceNavData(param);
+		SysUser sysUser= userService.findByLoginName(user.getUsername() == null ? "" : user.getUsername());
 		mv.setViewName("backstage/index");
 		mv.addObject("reourceList", reourceList);
+		mv.addObject("sysUser", sysUser);
 		return mv;
 	}
 
@@ -68,11 +72,12 @@ public class BaseController {
 	}
 	
 	// 获取当前登录用户
-		public String getLoginUser() {
+   public User getLoginUser() {
 			SecurityContext context = SecurityContextHolder.getContext();
 			Authentication auth = context.getAuthentication();
 			// 登入用户信息
-			return auth.getName();
+			User  user =  (User) auth.getPrincipal();
+			return user;
 		}
 
 }

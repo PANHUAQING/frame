@@ -9,8 +9,10 @@ package com.phq.frame.common.domain;
  *
  */
 public class PageModel {
-	private Integer pageIndex;
-	private Integer pageSize;
+	private Integer pageIndex= 1;
+	private Integer pageSize= 10;
+	
+	private Integer pageStartIndex;
 
 	public Integer getPageIndex() {
 		return pageIndex;
@@ -27,4 +29,16 @@ public class PageModel {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
+
+	public Integer getPageStartIndex() {
+		pageStartIndex = (getPageIndex()-1)*getPageSize();
+		return pageStartIndex;
+	}
+
+	public void setPageStartIndex(Integer pageStartIndex) {
+		this.pageStartIndex = pageStartIndex;
+	}
+	
+	
+	
 }

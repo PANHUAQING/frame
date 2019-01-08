@@ -1,4 +1,4 @@
-/******************鑿滃崟鏍忔樉绀轰笅宸︿晶鏃舵牱寮�***************/
+/******************閼挎粌宕熼弽蹇旀▔缁�杞扮瑓瀹革缚鏅堕弮鑸电壉瀵拷***************/
 .leftModule.bk-con-menu .breadcrumb{margin: 0;}
 .leftModule .menu-section .column-name{width: 100%; height: initial; float: none; }
 .leftModule .menu-section .column-name.open{border-bottom: 1px solid #dddddd;}
@@ -39,7 +39,7 @@
 	color: #333333;
 }
 .bk-con-menu .wap-menulist .arrow{margin-left: 15px;}
-/****************************娉ㄥ唽鏍峰紡灞炴��*****************************/
+/****************************濞夈劌鍞介弽宄扮础鐏炵偞锟斤拷*****************************/
 .login_style{ 
 	background-color:#1c77ac;
 	background-image: url(../images/light.png);
@@ -199,7 +199,7 @@
     color: #ffffff;
 }
 .login-main .login_btn:hover { 
-	background: url(../backstage/images/nav_gv.png) repeat 0px -43px; 
+	background: url(../images/nav_gv.png) repeat 0px -43px; 
 	color:#ffffff;
 	background-color:#1d7eb8;
 	-webkit-box-shadow: 0 0 6px #1d7eb8;
@@ -284,7 +284,7 @@ h4.bigger {font-size: 19px;}
 .Reg_log_style .frame_style.form_errors label.user_icon{background-position: -39px -30px;}
 .Reg_log_style .frame_style.form_errors label.Codes_icon{background-position: -40px -60px;}
 .button_width{ width:80px; color:#FFF;  padding:20px 0px; line-height:30px; font-size:18px; cursor:pointer; margin:20px 0px;}
-/**************绉诲姩绔晫闈㈡牱寮�*****************/
+/**************缁夎濮╃粩顖滄櫕闂堛垺鐗卞锟�*****************/
 .mobileStyle .logintop,
 .mobileStyle .loginbm,
 .mobileStyle .login-main:after{ display:none;}
@@ -296,13 +296,13 @@ h4.bigger {font-size: 19px;}
 .mobileStyle .login-main{padding:0 15px;}
 .mobileStyle form{ margin:0 auto;margin-right:0!important; width: 100%!important; display: block;}
 .mobileStyle .login-main .login_btn{float: none; width: 100%; margin: 15px 0;}
-/***********************绉诲姩璁剧疆*********************/
+/***********************缁夎濮╃拋鍓х枂*********************/
 .bk-herder-logo.wap-header{ border-bottom: 1px solid #333333;}
 .wap-menulist {overflow: hidden;}
 .wap-menulist .column-name{width: 80px;}
 .wap-menulist .column-name a{padding: 0px 10px;}
 .wap-Bombbox{position: fixed!important;width: 100%!important;right:0!important;z-index:111;}
-/***************************鍐呴〉绉诲姩鏍峰紡****************************/
+/***************************閸愬懘銆夌粔璇插З閺嶅嘲绱�****************************/
 .mobileStyle .Shops_info .left_shop .left_shop_logo{width: 100%;position: inherit; margin-bottom: 10px;left: 0;}
 .mobileStyle .Shops_info .left_shop .shop_logo{  margin: 0 auto;overflow: hidden; margin-bottom: 15px;}
 .mobileStyle .Shops_info .left_shop .Shops_content{margin: 0;}

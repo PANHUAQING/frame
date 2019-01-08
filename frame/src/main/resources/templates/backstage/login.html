@@ -55,10 +55,10 @@
 							<div class="Bombbox">
 								<ul class="skin-list">
 									<li>
-										<a class="colorpick-btn" href="javascript:void(0)" data-val="black"  style="background-color:#222A2D"></a>
+										<a class="colorpick-btn" href="javascript:void(0)" data-val="black" id="default" style="background-color:#222A2D"></a>
 									</li>
 									<li>
-										<a class="colorpick-btn" href="javascript:void(0)" data-val="blue" id="default" style="background-color:#438EB9;"></a>
+										<a class="colorpick-btn" href="javascript:void(0)" data-val="blue"  style="background-color:#438EB9;"></a>
 									</li>
 									<li>
 										<a class="colorpick-btn" href="javascript:void(0)" data-val="green" style="background-color:#72B63F;"></a>
@@ -77,7 +77,7 @@
 						</div>
 							<div class="clearfix">
 								<div class="login_icon"><img th:src="@{/backstage/images/login_img.png}"/></div>
-								<form class="" th:action="@{/login}"  method="post" style=" width:300px; float:right; margin-right:50px;">
+								<form class=""  th:action="@{/login}"  method="post" style=" width:300px; float:right; margin-right:50px;">
 									<h4 class="title_name"><img th:src="@{/backstage/images/login_title.png}"/></h4>
 									<fieldset>
 										<ul>
@@ -140,7 +140,7 @@
 		
 		//点击提交
 	  $('#login_btn').on('click', function() {
-		         var url =  [[@{/}]]+"login";
+		        var url =  [[@{/}]]+"login";
 				$.ajax({
 					  type: 'POST',
 					  url: url,

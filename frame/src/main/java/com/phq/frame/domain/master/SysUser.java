@@ -1,12 +1,21 @@
 package com.phq.frame.domain.master;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class SysUser {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-    private Integer id;
+import com.phq.frame.common.domain.PageModel;
+
+public class SysUser extends PageModel implements UserDetails {
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String loginname;
 
@@ -34,7 +43,17 @@ public class SysUser {
 	
 	private String roleName; //角色
 	
+	private String strCreatedate;//创建时间
+
 	
+	
+	public String getStrCreatedate() {
+		return strCreatedate;
+	}
+
+	public void setStrCreatedate(String strCreatedate) {
+		this.strCreatedate = strCreatedate;
+	}
 
 	public String getRoleName() {
 		return roleName;
@@ -146,6 +165,51 @@ public class SysUser {
 
 	public void setRoles(List<SysRole> roles) {
 		this.roles = roles;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<GrantedAuthority> GrantedAuthorities = new HashSet<GrantedAuthority>();
+		if (roles != null){
+			for (SysRole role : roles){
+				//添加角色
+				GrantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+				
+				/*List<Right> rights = role.getRights();
+				if (rights != null){
+					for (Right right : rights){
+						//添加权限
+						GrantedAuthorities.add(new SimpleGrantedAuthority("RIGHT_" + right.getName()));
+					}
+				}*/
+			}
+		}
+		return GrantedAuthorities;
+	}
+
+	@Override
+	public String getUsername() {
+		return loginname;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 

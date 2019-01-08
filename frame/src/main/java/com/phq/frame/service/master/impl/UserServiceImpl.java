@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.StringUtil;
 import com.phq.frame.common.constant.Contants;
 import com.phq.frame.common.domain.ResultModel;
 import com.phq.frame.domain.master.SysRole;
@@ -39,8 +40,19 @@ public class UserServiceImpl implements UserService {
 	
 	public ResultModel getUserList(Map map) throws Exception {
 		 List<SysUser> list = sysUserMapper.selectUserList(map);
+		 //遍历用户 获取用户角色信息
+		 list.forEach(item ->{
+			 if(!StringUtil.isEmpty(item.getLoginname())) {
+				 List<SysRole> roles = sysUserMapper.findRoleByUserName(item.getLoginname());
+				 StringBuffer roleStr = new StringBuffer();
+				 roles.forEach(role->{
+					 roleStr.append(role.getRoleName()).append(",");
+				 });
+				 item.setRoleName(roleStr.toString().substring(0, roleStr.toString().length()-1));
+			 }
+		 });
 		 int  count =  sysUserMapper.selectUserCount(map);
-		 return new ResultModel(Contants.WEB_SUCCESS_CODE,"查询成功！",list,count);
+		 return new ResultModel(Contants.WEB_SUCCESS_CODE,list,count);
 	}
 
 }

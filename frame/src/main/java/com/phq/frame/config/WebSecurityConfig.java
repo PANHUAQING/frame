@@ -66,9 +66,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		 auth.authenticationProvider(sysUserAuthenticationProvider());
-		//auth.userDetailsService(sysUserDetailsService()).passwordEncoder(passwordEncoder());
-       // auth.eraseCredentials(false);
+		 //auth.authenticationProvider(sysUserAuthenticationProvider());
+		 auth.userDetailsService(sysUserDetailsService()).passwordEncoder(passwordEncoder());
+         auth.eraseCredentials(false);
     }
 
 	 @Override

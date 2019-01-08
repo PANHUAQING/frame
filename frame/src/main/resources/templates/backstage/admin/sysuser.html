@@ -12,7 +12,9 @@
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <link rel="shortcut icon" th:href="@{favicon.ico}"> 
+	
+	<div th:replace="backstage/global::html" ></div>
+   <!--  <link rel="shortcut icon" th:href="@{favicon.ico}"> 
     <link th:href="@{/backstage/css/bootstrap.min.css}" rel="stylesheet">
 	<link th:href="@{/backstage/css/font-awesome.min.css}" rel="stylesheet" id="skin">
 	<link th:href="@{/backstage/css/animate.min.css}" rel="stylesheet">
@@ -26,7 +28,7 @@
 	 <script language=javascript th:src= "@{/backstage/js/plugins/iCheck/icheck.min.js}"></script>
 	 <script language=javascript th:src= "@{/backstage/js/import.js}"></script>
 	 <script language=javascript th:src= "@{/backstage/js/demo/peity-demo.min.js}"></script>
-     <script th:src= "@{/js/bootstrap-paginator.js}"></script>
+     <script th:src= "@{/js/bootstrap-paginator.js}"></script> -->
 </head>
 
 <body class="gray-bg">
@@ -142,26 +144,28 @@
     
     function  ajaxLoad(pageIndex,pageSize){
     	//获取页码
-    	var url =  [[@{/}]]+"backstage/userController/getUserList";
+    	var url =  [[@{/}]]+"backstage/userController/getUserList?pageIndex="+pageIndex+"&pageSize="+pageSize;
 		$.ajax({
 			  type: 'POST',
 			  url: url,
-			  data: {"pageSize":pageSize,"pageIndex":pageIndex},
+			  data: "",
 			  dataType: 'json',
 	          contentType: 'application/json',
 	          async: true,
 			  success:function(data, textStatus){
 				  $('#userList tr').remove();
-				  var dataList = data.reuslt;
+				  var dataList = data.reuslt_data;
+				  var total = data.result_total;
+				  console.info(dataList);
 				  for(var i=0;i<dataList.length;i++){
 					  $('#userList').append('<tr>');
-					  $('#userList').append(' <td><input type="checkbox" checked class="i-checks" value="'+dataList[i].id+'"></td>');
-                      $('#userList').append('<td>"'+dataList[i].loginname+'"</td>');
-                      $('#userList').append('<td>"'+dataList[i].name+'"</td>');
-                      $('#userList').append('<td>"'+dataList[i].sex+'"</td>');
-                      $('#userList').append('<td>"'+dataList[i].age+'"</td>');
-                      $('#userList').append('<td>"'+dataList[i].phone+'"</td>');
-                      $('#userList').append(' <td>"'+dataList[i].roleName+'"</td>');
+					  $('#userList').append(' <td><input type="checkbox" checked class="i-checks" value='+dataList[i].id+'></td>');
+                      $('#userList').append('<td>'+dataList[i].loginname+'</td>');
+                      $('#userList').append('<td>'+dataList[i].name+'</td>');
+                      $('#userList').append('<td>'+dataList[i].sex+'</td>');
+                      $('#userList').append('<td>'+dataList[i].age+'</td>');
+                      $('#userList').append('<td>'+dataList[i].phone+'</td>');
+                      $('#userList').append(' <td>'+dataList[i].roleName+'</td>');
                       $('#userList').append('<td><a href="table_basic.html#"><i class="fa fa-check text-navy"></i></a></td>');
                       $('#userList').append('</tr>');
 				  }
@@ -173,7 +177,6 @@
     
         $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
     </script>
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 </body>
 
 </html>

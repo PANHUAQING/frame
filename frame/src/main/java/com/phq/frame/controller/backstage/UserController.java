@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.phq.frame.common.domain.PageModel;
 import com.phq.frame.common.domain.ResultModel;
+import com.phq.frame.domain.master.SysUser;
 import com.phq.frame.service.master.UserService;
 
 import io.swagger.annotations.Api;
@@ -27,9 +28,9 @@ import io.swagger.annotations.ApiOperation;
 * @date 2018年10月11日
 *
  */
+@Api(value="用户管理PAI",description="用户操作",tags={"用户操作接口"})
 @RestController
 @RequestMapping(value ="/backstage/userController")
-@Api("用户 管理Swagger2 api")
 public class UserController {
 	
 	@Autowired
@@ -39,23 +40,32 @@ public class UserController {
 	@ApiImplicitParam(name="mv",value="视图对象",required=true)
 	@RequestMapping("/showUserListPage")
 	public ModelAndView  showUserListPage(ModelAndView mv) {
-		mv.setViewName("/backstage/admin/sysuser");
+		mv.setViewName("/backstage/admin/sysusers");
 		return mv;	
 	}
+	
+	@ApiOperation(value="跳转首页",notes="跳转页面")
+	@ApiImplicitParam(name="mv",value="视图对象",required=true)
+	@RequestMapping("/indexHead")
+	public ModelAndView  indexHead(ModelAndView mv) {
+		mv.setViewName("/backstage/admin/indexHead");
+		return mv;	
+	}
+	
+	
 	@ApiOperation(value="获取用户列表",notes="用户管理下获取用户列表的方法默认跳转页面进行显示")
 	@ApiImplicitParam(name="mv",value="视图对象",required=true)
 	@RequestMapping("/getUserList")
-	public ModelAndView  getUserList(ModelAndView mv,HttpServletRequest request) {
+	public ResultModel  getUserList(ModelAndView mv,HttpServletRequest request,SysUser sysUser) {
 		Map map = new HashMap();
-		map.put("pageIndex",request.getParameter("pageIndex"));
-		map.put("pageSize", request.getParameter("pageSize"));
+		map.put("pageIndex",sysUser.getPageStartIndex());
+		map.put("pageSize", sysUser.getPageSize());
 		ResultModel result = null;
 		try {
 			result = userService.getUserList(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mv.addObject("result", result);
-		return mv;	
+		return result;	
 	}
 }

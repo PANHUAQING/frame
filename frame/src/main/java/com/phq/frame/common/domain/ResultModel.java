@@ -18,8 +18,29 @@ public class ResultModel implements Serializable{
 	private List<?>   reuslt_data;//返回结果集
 	private int    result_total; //返回总条数
 	
+	private List<?>   rows;
+	
+	private int total;
 	
 	
+	
+	
+	public List<?> getRows() {
+		return rows;
+	}
+
+	public void setRows(List<?> rows) {
+		this.rows = rows;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
 	public ResultModel() {
 		super();
 	}
@@ -39,6 +60,15 @@ public class ResultModel implements Serializable{
 	}
 	
 	
+	
+	
+	public ResultModel(String result_code, List<?> rows, int total) {
+		super();
+		this.result_code = result_code;
+		this.rows = rows;
+		this.total = total;
+	}
+
 	public String getResult_code() {
 		return result_code;
 	}
