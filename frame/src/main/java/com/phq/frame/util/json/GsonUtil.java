@@ -1,4 +1,4 @@
-package com.phq.frame.util;
+package com.phq.frame.util.json;
 
 import java.beans.PropertyDescriptor;
 import java.util.ArrayList;

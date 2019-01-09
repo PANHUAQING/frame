@@ -1,4 +1,4 @@
-package com.phq.frame.util;
+package com.phq.frame.util.json;
 
 import java.io.IOException;
 import java.util.ArrayList;
