@@ -48,11 +48,30 @@ public class UserServiceImpl implements UserService {
 				 roles.forEach(role->{
 					 roleStr.append(role.getRoleName()).append(",");
 				 });
-				 item.setRoleName(roleStr.toString().substring(0, roleStr.toString().length()-1));
+				 if(roleStr.toString().length()>0) {
+					 item.setRoleName(roleStr.toString().substring(0, roleStr.toString().length()-1)); 
+				 }
+				 
 			 }
 		 });
 		 int  count =  sysUserMapper.selectUserCount(map);
 		 return new ResultModel(Contants.WEB_SUCCESS_CODE,list,count);
 	}
+
+	@Override
+	public ResultModel deleteUserByIds(String ids) throws Exception {
+		ResultModel result = null;
+		
+		if(!StringUtil.isEmpty(ids)) {
+			result = new  ResultModel(Contants.WEB_ERROR_CODE, "请选择需要删除的用户！");
+			return result;
+		}
+		sysUserMapper.deleteUserByPrimaryKeyPatch(ids);
+		
+		return new  ResultModel(Contants.WEB_SUCCESS_CODE,Contants.WEB_SUCCESS_MSG);
+	}
+	
+	
+	
 
 }

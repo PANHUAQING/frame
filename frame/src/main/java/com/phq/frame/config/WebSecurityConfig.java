@@ -34,10 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           //.addFilterBefore(UserDefinedSecrityFilter, FilterSecurityInterceptor.class)//在正确的位置添加我们自定义的过滤器
           .csrf().disable() //关闭跨域检测
           .authorizeRequests()
-          .antMatchers("/", "/img/**","/backstage/css/**"
-        		  ,"/backstage/js/**","/backstage/images/**","/backstage/skin/**","/backstage/font/**")
+          .antMatchers("/", "/img/**")
           .permitAll()//访问：/ /error 无需登录认证权限
-          .antMatchers("/swagger-ui.htm").permitAll()//访问：/ /error 无需登录认证权限
+          .antMatchers("/swagger-ui.htm").permitAll()//访问：swagger2 的接口显示页面 
           //其他地址的访问均需验证权限
           .anyRequest().authenticated()//其他所有资源都需要认证，登陆后访问
           
@@ -61,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
               
           .and()
               .rememberMe()//登录后记住用户，下次自动登录,数据库中必须存在名为persistent_logins的表
-              .tokenValiditySeconds(1209600);  ;
+              .tokenValiditySeconds(1209600); //cookie的有效期 单位为妙
 	}
 
 	@Autowired
@@ -75,6 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 	       //解决静态资源被拦截的问题
 	        web.ignoring().antMatchers("/backstage/**");
+	        //bootstrap下静态资源 不拦截
+	        web.ignoring().antMatchers("/bootstrap/**");
 	  }
     /**
      * 

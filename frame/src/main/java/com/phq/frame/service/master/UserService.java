@@ -10,4 +10,6 @@ public interface UserService {
 	 SysUser findByLoginName(String userName);
 	 
 	 public ResultModel getUserList(Map map) throws Exception;
+	 
+	 public ResultModel deleteUserByIds(String ids) throws Exception;
 }
