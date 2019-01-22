@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
  * @date 2018年10月11日
  *
  */
-@Api(value = "//backstage/userController", description = "用户操作", tags = { "用户操作接口" })
+@Api(value = "/backstage/userController", description = "用户操作", tags = { "用户操作接口" })
 @RestController
 @RequestMapping(value = "/backstage/userController")
 public class UserController {
