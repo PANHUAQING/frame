@@ -76,4 +76,16 @@ public class UserController {
 		ResultModel result = userService.deleteUserByIds(ids);
 		return result;
 	}
+	
+	@ApiOperation(value = "/saveUser", notes = "保存用户")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "request", value = "request对象", required = true),
+		@ApiImplicitParam(name = "sysUser", value = "sysUser", required = true)
+	})
+	@RequestMapping("/saveUser")
+	public ResultModel saveUser( HttpServletRequest request,SysUser sysUser) throws Exception {
+		// 获取参数
+		ResultModel result = userService.saveUser(sysUser);
+		return result;
+	}
 }
