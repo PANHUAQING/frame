@@ -102,8 +102,8 @@ public class TimeshaftController {
 
 	@RequestMapping("/esQueryById")
 	public  Optional<TbTimeshaft>   esQueryById() {
-		
-	  Optional<TbTimeshaft> tbTimeshaft =  eSTimeShaftRepository.findById("111");
+	//通过id查询	TbTimeshaft
+	Optional<TbTimeshaft> tbTimeshaft =  eSTimeShaftRepository.findById("111");
 	
 	 return tbTimeshaft;
 	}
@@ -124,10 +124,14 @@ public class TimeshaftController {
 		
 		Pageable  pageable= new PageRequest(0,200);
 		Page<TbTimeshaft>  tbTimeshaft = eSTimeShaftRepository.findAll(pageable);
-	
+	    
+		//构造一个查询构造器
+		QueryBuilder query =QueryBuilders.matchQuery("timeContent", "wewe25");
 		
-		QueryBuilder query =null;;
-		eSTimeShaftRepository.search(query);
+		Iterable<TbTimeshaft> it =  eSTimeShaftRepository.search(query);
+		it.forEach( tbl ->{
+	        System.out.println(tbl.getTimeUrl()); 
+		});
 	 return tbTimeshaft;
 	}
 	

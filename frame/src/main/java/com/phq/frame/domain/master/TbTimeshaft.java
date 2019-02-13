@@ -17,7 +17,7 @@ import com.phq.frame.common.domain.PageModel;
 * @date 2018年10月22日
 *
  */
-@Document(indexName="frame_tbtimeshaft",type="tbtimeshaft",shards = 5,replicas = 1)
+@Document(indexName="tbtimeshaft",type="tbtimeshaft",shards = 5,replicas = 1)
 public class TbTimeshaft extends PageModel {
 	
 
