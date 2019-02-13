@@ -12,4 +12,6 @@ public interface UserService {
 	 public ResultModel getUserList(Map map) throws Exception;
 	 
 	 public ResultModel deleteUserByIds(String ids) throws Exception;
+	 
+	 public ResultModel saveUser(SysUser sysUser) throws Exception;
 }

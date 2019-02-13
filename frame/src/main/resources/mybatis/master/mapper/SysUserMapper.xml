@@ -74,6 +74,14 @@
     where id = #{id}
   </select>
   
+  <!-- 通过用户名获取是否有重复的用户 -->
+  <select id="selectCountByUserName" resultType="java.lang.Integer"  parameterType="java.lang.String" >
+    select 
+    count(1)
+    from sys_user
+    where loginname = #{loginname}
+  </select>
+  
  <!-- 通过主键获取用户通过用户名 -->
   <select id="findUserByUserName" resultMap="BaseResultMap"  parameterType="java.lang.String" >
     select 
@@ -108,7 +116,7 @@
   </delete>
   
   <!-- 保存用户数据 -->
-  <insert id="saveUser" parameterType="java.util.Map" >
+  <insert id="saveUser" parameterType="com.phq.frame.domain.master.SysUser" >
     insert into sys_user (loginname, name, 
       password, sex, age, 
       phone, usertype, status, 
@@ -116,8 +124,8 @@
       )
     values (#{loginname}, #{name}, 
       #{password}, #{sex}, #{age}, 
-      #{phone}, 1, 1, 
-      #{orgId}, sysdate, #{seq}
+      #{phone}, 0, 1, 
+      #{orgId}, SYSDATE(), #{seq}
       )
   </insert>
 

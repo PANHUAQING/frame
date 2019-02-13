@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.StringUtil;
 import com.phq.frame.common.constant.Contants;
 import com.phq.frame.common.domain.ResultModel;
+import com.phq.frame.common.framework.secrity.BCryptPasswordUtil;
 import com.phq.frame.domain.master.SysRole;
 import com.phq.frame.domain.master.SysUser;
 import com.phq.frame.mapper.master.SysUserMapper;
@@ -67,6 +68,36 @@ public class UserServiceImpl implements UserService {
 			return result;
 		}
 		sysUserMapper.deleteUserByPrimaryKeyPatch(ids);
+		
+		return new  ResultModel(Contants.WEB_SUCCESS_CODE,Contants.WEB_SUCCESS_MSG);
+	}
+	
+	
+	@Override
+	public ResultModel saveUser(SysUser sysUser) throws Exception {
+		ResultModel result = null;
+		
+		if(StringUtil.isEmpty(sysUser.getLoginname())) {
+			result = new  ResultModel(Contants.WEB_ERROR_CODE, "请填写用登录名！");
+			return result;
+		}
+		int userCount =  sysUserMapper.selectCountByUserName(sysUser.getLoginname());
+		if(userCount>0) {
+			result = new  ResultModel(Contants.WEB_ERROR_CODE, "存在相同登录的用户，请重新填写！");
+			return result;
+		}
+		if(StringUtil.isEmpty(sysUser.getPassword())) {
+			result = new  ResultModel(Contants.WEB_ERROR_CODE, "请填写密码！");
+			return result;
+		}else {
+			
+			sysUser.setPassword(BCryptPasswordUtil.passwordEncode(sysUser.getPassword()));
+		}
+		if(StringUtil.isEmpty(sysUser.getName())) {
+			result = new  ResultModel(Contants.WEB_ERROR_CODE, "请填写用户名！");
+			return result;
+		}
+		sysUserMapper.saveUser(sysUser);
 		
 		return new  ResultModel(Contants.WEB_SUCCESS_CODE,Contants.WEB_SUCCESS_MSG);
 	}
