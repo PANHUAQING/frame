@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
  * @date 2018年10月11日
  *
  */
-@Api(value = "//backstage/userController", description = "用户操作", tags = { "用户操作接口" })
+@Api(value = "/backstage/userController", description = "用户操作", tags = { "用户操作接口" })
 @RestController
 @RequestMapping(value = "/backstage/userController")
 public class UserController {
@@ -68,24 +68,12 @@ public class UserController {
 		@ApiImplicitParam(name = "mv",      value = "视图对象", required = true),
 		@ApiImplicitParam(name = "request", value = "request对象", required = true)
 	})
+	@ApiImplicitParam(name = "mv", value = "视图对象", required = true)
 	@RequestMapping("/deleteUserById")
 	public ResultModel deleteUserById(ModelAndView mv, HttpServletRequest request) throws Exception {
 		String ids = request.getParameter("ids");
 		// 获取参数
 		ResultModel result = userService.deleteUserByIds(ids);
-		return result;
-	}
-	
-	
-	@ApiOperation(value = "/saveUser", notes = "保存用户")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "request", value = "request对象", required = true),
-		@ApiImplicitParam(name = "sysUser", value = "sysUser", required = true)
-	})
-	@RequestMapping("/saveUser")
-	public ResultModel saveUser( HttpServletRequest request,SysUser sysUser) throws Exception {
-		// 获取参数
-		ResultModel result = userService.saveUser(sysUser);
 		return result;
 	}
 }
