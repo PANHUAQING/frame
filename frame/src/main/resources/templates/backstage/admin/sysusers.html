@@ -470,12 +470,31 @@
     
     //删除方法监听事件
     $("#btn_delete").on("click",function(){
-    	var rows = $table.bootstrapTable('getSelections');
+    	 var rows = $table.bootstrapTable('getSelections');
+    	// console.info(rows);
     	   //选择一条数据修改
  	   	 if(rows.length>0){
- 	   		 
+
+       		 $.ajax({
+                    type: "post",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    success: function(data){
+                          if(data.result_code="0000"){
+                        	   alert(data.result_msg);
+                        	   $('#grid').bootstrapTable('destroy');
+                        	   initTable();
+                          }else{
+                        	  alert(data.result_msg);
+                          }
+                        	  
+                     }
+                });
  	   	 }else{
- 	   		 
+ 	   		var txt=  "请选择需要删除的数据";
+			window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
+ 	   		//alert("请选择需要删除的数据"); 
  	   	 }
     })
     
