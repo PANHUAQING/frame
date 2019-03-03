@@ -45,9 +45,21 @@ public class SysUser extends PageModel implements UserDetails {
 	private String roleName; //角色
 	
 	private String strCreatedate;//创建时间
+	
+	
+	private String ids;//删除时多个id集合
 
 	
 	
+	
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
+
 	public String getStrCreatedate() {
 		return strCreatedate;
 	}

@@ -2,14 +2,11 @@ package com.phq.frame.controller.backstage;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.phq.frame.common.domain.PageModel;
 import com.phq.frame.common.domain.ResultModel;
 import com.phq.frame.domain.master.SysUser;
@@ -19,7 +16,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-
 /**
  * 
  * @ClassName: UserController
@@ -65,7 +61,6 @@ public class UserController {
 
 	@ApiOperation(value = "/deleteUserById", notes = "批量删除用户")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "mv",      value = "视图对象", required = true),
 		@ApiImplicitParam(name = "request", value = "request对象", required = true)
 	})
 	@ApiImplicitParam(name = "mv", value = "视图对象", required = true)
@@ -88,4 +83,5 @@ public class UserController {
 		ResultModel result = userService.saveUser(sysUser);
 		return result;
 	}
+	
 }
