@@ -110,9 +110,13 @@
   
   
   <!-- 删除用户通过主键 -->
-  <delete id="deleteUserByPrimaryKeyPatch" parameterType="java.lang.String" >
+  <delete id="deleteUserByPrimaryKeyPatch">
     delete from sys_user
-    where id in ${ids}
+    where id in 
+          <foreach collection="ids" item="id" index="no" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+    
   </delete>
   
   <!-- 保存用户数据 -->

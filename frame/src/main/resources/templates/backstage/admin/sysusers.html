@@ -160,56 +160,75 @@
         <!-- end  模拟框结束 -->
         
          <!-- 修改 模拟框增加 -->
-        <div class="modal fade" id="editModel" role="dialog">
+       <!-- add 模拟框增加 -->
+		<div class="modal fade" id="editModel" tabindex="-1" role="dialog" ria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">修改图书内容</h4>
+		        <h4 class="modal-title">修改用户</h4>
 		      </div>
-		      <div id="editBookModal" class="modal-body">
-		        <div class="form-horizontal">
-		          <div class="form-group">
-		            <label for="editBookName" class="col-sm-2 control-label">书名:*</label>
-		            <div class="col-sm-10">
-		              <input class="form-control" id="editBookName" type="text">
-		            </div>
-		          </div>
-		          <div class="form-group">
-		            <label for="editBookAuthor" class="col-sm-2 control-label">作者:*</label>
-		            <div class="col-sm-10">
-		              <input class="form-control" id="editBookAuthor" type="text">
-		            </div>
-		          </div>
-		          <div class="form-group">
-		            <label for="editBookPrice" class="col-sm-2 control-label">价格:*</label>
-		            <div class="col-sm-10">
-		              <input class="form-control" id="editBookPrice" type="text">
-		            </div>
-		          </div>
-		          <div class="form-group">
-		            <label for="editBookPublish" class="col-sm-2 control-label">出版社:*</label>
-		            <div class="col-sm-10">
-		              <input class="form-control" id="editBookPublish" type="text">
-		            </div>
-		          </div>
-		          <div class="form-group">
-		            <label for="editBookISBN" class="col-sm-2 control-label">ISBN:*</label>
-		            <div class="col-sm-10">
-		              <input class="form-control" id="editBookISBN" type="text">
-		            </div>
-		          </div>
-		        </div>
-		      </div>
+		      
+		       <form action="" method="POST" role="form" id="form-add">
+		          <div id="addBookModal" class="modal-body">
+				        <div class="form-horizontal">
+				          <div class="form-group">
+				            <label for="loginname" class="col-sm-2 control-label">登录名: *</label>
+				            <div class="col-sm-10">
+				              <input class="form-control" id="loginname" name="loginname" type="text" placeholder="登录名">
+				            </div>
+				          </div>
+				          <div class="form-group">
+				            <label for="name" class="col-sm-2 control-label">用户名: *</label>
+				            <div class="col-sm-10">
+				              <input class="form-control" id="name" name="name"  type="text" placeholder="用户名">
+				            </div>
+				          </div>
+				          <div class="form-group">
+				            <label for="password" class="col-sm-2 control-label">密码: *</label>
+				            <div class="col-sm-10">
+				              <input class="form-control" id="password" name="password"  type="password">
+				            </div>
+				          </div>
+				          <div class="form-group">
+				            <label for="sex" class="col-sm-2 control-label">性别:</label>
+				            <div class="col-sm-10">
+				              <input type="radio" name="sex" class="sex" id="man" checked="checked" value="1"/>男
+							  <input type="radio" name="sex" class="sex" id="women" value="2"/>女
+				            </div>
+				          </div>
+				          <div class="form-group">
+				            <label for="phone" class="col-sm-2 control-label">电话号码:</label>
+				            <div class="col-sm-10">
+				              <input class="form-control" id="phone"  name="phone" type="text">
+				            </div>
+				          </div>
+				          <div class="form-group">
+				            <label for="wechat" class="col-sm-2 control-label">微信:</label>
+				            <div class="col-sm-10">
+				              <input class="form-control" id="wechat" name="wechat"  type="text">
+				            </div>
+				          </div>
+				          <div class="form-group spinner ">
+				            <label for="age" class="col-sm-2 control-label">年龄:</label>
+				            <div class="col-sm-10">
+				              <input class="form-control" id="age"  name="age" type="text">
+				            </div>
+				          </div>
+				        </div>
+		         </div>
+		      </form>
 		      <div class="modal-footer">
 		        <div class="center-block">
-		          <button id="cancelEdit" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-		          <button id="saveEdit" type="button" class="btn btn-success" data-dismiss="modal">保存</button>
+		          <button id="cancelAdd" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		          <button id="addObject" type="button" class="btn btn-success" data-dismiss="modal">保存</button>
 		        </div>
 		      </div>
 		    </div>
 		  </div>
 		</div>
+        <!-- end  模拟框结束 -->
+        
         <!-- 修改 结束 -->
         
         <!-- 删除开始 -->
@@ -370,7 +389,6 @@
                 return temp;
             },
             columns: [{
-            	field :'id',
                 checkbox: true,  
                 visible: true                  //是否显示复选框  
             }, {
@@ -468,50 +486,12 @@
         }
     }); 
     
-    
-   /*  //删除方法监听事件
-    $("#btn_delete").on("click",function(){
-    	 var rows = $table.bootstrapTable('getSelections');
-    	// console.info(rows);
-    	   //选择一条数据修改
- 	   	 if(rows.length>0){
- 	   		 var ids =[];
- 	   		for(var i=0;i<rows.length;i++){
- 	   			ids.push(rows[i].id);
- 	   		}
- 	   		var url = [[@{/}]]+"backstage/userController/deleteUserById";
-       		 $.ajax({
-                    type: "post",
-                    url: url,
-                    data: {"ids":ids.toString()},
-                    dataType: "json",
-                    success: function(data){
-                          if(data.result_code="0000"){
-                        	   alert(data.result_msg);
-                        	   $('#grid').bootstrapTable('destroy');
-                        	   initTable();
-                          }else{
-                        	  alert(data.result_msg);
-                          }
-                        	  
-                     }
-                });
- 	   	 }else{
- 	   		var txt=  "请选择需要删除的数据";
-			window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);
- 	   		//alert("请选择需要删除的数据"); 
- 	   	 }
-    }) */
-    
     // 编辑图书
     $('#btn_edit').click(function () {
       if (table.rows('.selected').data().length) {
-        $("#editModel").modal()
-        var rowData = table.rows('.selected').data()[0];
-        var inputs = $("#editModel").find('input')
-        for (var i = 0; i < inputs.length; i++) {
-          $(inputs[i]).val(rowData[i + 1])
-        }
+          $("#editModel").modal()
+         var rows = $table.bootstrapTable('getSelections');
+         console.info(rows);
       } else {
         alert('请选择项目');
       }
@@ -528,17 +508,22 @@
 	   		for(var i=0;i<rows.length;i++){
 	   			ids.push(rows[i].id);
 	   		}
-	   		//console.info(JSON.stringify(ids));
+	   		console.info(JSON.stringify(ids));
 	   		var url =  [[@{/}]]+"backstage/userController/deleteUserById";
    			$.ajax({
    				  type: 'POST',
    				  url: url,
-   				  data: {ids:ids.join(',')},
+   				  data: {'ids':ids.toString()},
    				  dataType: 'json',
-   		          contentType: 'application/json',
+   		          //contentType: 'application/json',
    		          async: true,
    				  success:function(data, textStatus){
-   			         
+   					if(data.result_code="0000"){
+                 	   $('#grid').bootstrapTable('destroy');
+                 	   initTable();
+	                   }else{
+	                 	  alert(data.result_msg);
+	                   }
    			       }
    				  ,error:function(XMLHttpRequest, textStatus, errorThrown){
    				  }
@@ -549,18 +534,7 @@
 	   	 }
     });
     
-     　//在调用 show 方法后触发
-    $('#editModel').on('show.bs.modal', function () {
-    	 var rows = $table.bootstrapTable('getSelections');
-    	 //选择一条数据修改
-    	 if(rows.length==1){
-    		  console.info(rows);
-    	 }else{
-    		 /* $("#showText").text("请选择需要修改的单条数据！")
-    		 $("#showModel").modal('show');
-    		 $("#editModel").model('hide'); */
-    	 }
-    })
+
     
  
     </script>

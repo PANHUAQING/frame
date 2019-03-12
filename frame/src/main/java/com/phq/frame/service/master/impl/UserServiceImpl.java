@@ -63,11 +63,11 @@ public class UserServiceImpl implements UserService {
 	public ResultModel deleteUserByIds(String ids) throws Exception {
 		ResultModel result = null;
 		
-		if(!StringUtil.isEmpty(ids)) {
+		if(StringUtil.isEmpty(ids)) {
 			result = new  ResultModel(Contants.WEB_ERROR_CODE, "请选择需要删除的用户！");
 			return result;
 		}
-		sysUserMapper.deleteUserByPrimaryKeyPatch(ids);
+		sysUserMapper.deleteUserByPrimaryKeyPatch(ids.split(","));
 		
 		return new  ResultModel(Contants.WEB_SUCCESS_CODE,Contants.WEB_SUCCESS_MSG);
 	}

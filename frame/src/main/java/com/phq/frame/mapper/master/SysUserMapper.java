@@ -16,7 +16,7 @@ public interface SysUserMapper {
 	public int selectUserCount(Map map) throws Exception;
 	
 	//批量删除用户
-	public int deleteUserByPrimaryKeyPatch(@Param("ids") String ids) throws Exception;
+	public int deleteUserByPrimaryKeyPatch(@Param("ids") String[] ids) throws Exception;
 	
 	//通过用户名获取用户对象
 	public SysUser  findUserByUserName(String userName); 

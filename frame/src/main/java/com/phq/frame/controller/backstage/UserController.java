@@ -61,14 +61,14 @@ public class UserController {
 
 	@ApiOperation(value = "/deleteUserById", notes = "批量删除用户")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "request", value = "request对象", required = true)
+		@ApiImplicitParam(name = "request", value = "request对象", required = false),
+		@ApiImplicitParam(name = "sysUser", value = "sysUser", required = true)
 	})
 	@ApiImplicitParam(name = "mv", value = "视图对象", required = true)
 	@RequestMapping("/deleteUserById")
-	public ResultModel deleteUserById(ModelAndView mv, HttpServletRequest request) throws Exception {
-		String ids = request.getParameter("ids");
+	public ResultModel deleteUserById( HttpServletRequest request,SysUser sysUser) throws Exception {
 		// 获取参数
-		ResultModel result = userService.deleteUserByIds(ids);
+		ResultModel result = userService.deleteUserByIds(sysUser.getIds());
 		return result;
 	}
 	
