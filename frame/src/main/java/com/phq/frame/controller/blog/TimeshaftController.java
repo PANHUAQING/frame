@@ -123,10 +123,13 @@ public class TimeshaftController {
 	public Page<TbTimeshaft>  esQueryPageAndSearch() {
 		
 		Pageable  pageable= new PageRequest(0,200);
+		
 		Page<TbTimeshaft>  tbTimeshaft = eSTimeShaftRepository.findAll(pageable);
 	    
 		//构造一个查询构造器
 		QueryBuilder query =QueryBuilders.matchQuery("timeContent", "wewe25");
+		
+		QueryBuilders.termQuery("timeContent", "wewe13");
 		
 		Iterable<TbTimeshaft> it =  eSTimeShaftRepository.search(query);
 		it.forEach( tbl ->{

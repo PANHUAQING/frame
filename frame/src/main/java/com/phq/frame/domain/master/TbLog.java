@@ -4,35 +4,44 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Document(indexName="frame_tbLog",type="tbLog",shards = 5,replicas = 1)
 public class TbLog {
-	
-
 	@Id
     private String id;
 	
 	
     private String logId;
 
+    @Field(type = FieldType.Text)
     private String logRequestUrl;
 
+    @Field(type = FieldType.Text)
     private String logRequestAttributes;
 
+    @Field(type = FieldType.Text)
     private String logRequestSessionid;
 
+    @Field(type = FieldType.Text)
     private String logRequestClientip;
 
+    @Field(type = FieldType.Date)
     private Date logRequestStarttime;
 
+    @Field(type = FieldType.Date)
     private Date logRequestEndtime;
 
+    @Field(type = FieldType.Text)
     private String logLoginUserid;
 
+    @Field(type = FieldType.Text)
     private String logLoginName;
 
+    @Field(type = FieldType.Date)
     private Date logCreateTime;
 
+    @Field(type = FieldType.Text)
     private String logException;
 
     public String getLogId() {
